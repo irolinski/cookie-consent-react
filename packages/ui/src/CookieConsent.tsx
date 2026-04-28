@@ -326,7 +326,7 @@ const Slider = styled.span<{
   $colors: ReturnType<typeof mergeColors>;
 }>`
   position: absolute;
-  cursor: pointer;
+  cursor: ${(props) => (props.$isRequired ? "not-allowed" : "pointer")};
   top: 0;
   left: 0;
   right: 0;
