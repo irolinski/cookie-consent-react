@@ -221,7 +221,7 @@ const SaveButton = styled.button`
 `;
 
 // Checkbox styling
-const CheckboxContainer = styled.label`
+const CheckboxContainer = styled.label<{ isRequired?: boolean }>`
   display: flex;
   align-items: center;
   position: relative;
@@ -299,7 +299,7 @@ const Switch = styled.label`
   }
 `;
 
-const Slider = styled.span`
+const Slider = styled.span<{ isRequired?: boolean }>`
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -323,7 +323,7 @@ const Slider = styled.span`
   }
 
   input:checked + & {
-    background-color: #2196f3;
+    background-color: ${(props) => (props.isRequired ? "#ccc" : "#2196f3")};
   }
 
   input:focus + & {
@@ -562,7 +562,9 @@ export const CookieConsent = ({
                     <Category>
                       <CategoryHeader>
                         <CategoryInfo>
-                          <CheckboxContainer>
+                          <CheckboxContainer
+                            isRequired={requiredCategories.includes(category)}
+                          >
                             <input
                               type="checkbox"
                               checked={
@@ -624,7 +626,9 @@ export const CookieConsent = ({
                                 categorySettings[category]?.required
                               }
                             />
-                            <Slider />
+                            <Slider
+                              isRequired={requiredCategories.includes(category)}
+                            />
                           </Switch>
                           <CategoryName>
                             {categorySettings[category] &&
