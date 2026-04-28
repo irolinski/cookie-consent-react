@@ -573,8 +573,7 @@ export const CookieConsent = ({
                               type="checkbox"
                               checked={
                                 selectedCategories.includes(category) ||
-                                (categorySettings[category] &&
-                                  categorySettings[category]?.required)
+                                requiredCategories.includes(category)
                               }
                               onChange={() =>
                                 setSelectedCategories((prev) =>
@@ -617,8 +616,7 @@ export const CookieConsent = ({
                               type="checkbox"
                               checked={
                                 selectedCategories.includes(category) ||
-                                (categorySettings[category] &&
-                                  categorySettings[category]?.required)
+                                requiredCategories.includes(category)
                               }
                               onChange={() =>
                                 setSelectedCategories((prev) =>
