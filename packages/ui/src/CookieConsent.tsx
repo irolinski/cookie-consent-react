@@ -2,6 +2,11 @@
 
 import React, { JSX, useEffect, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
+import {
+  CookieConsentAvailableLanguage,
+  CookieConsentDefaultTranslations,
+  CookieConsentTranslations,
+} from "./locales";
 
 const slideUp = keyframes`
   from {
@@ -393,44 +398,6 @@ type CookieCategorySettings = {
   };
 };
 
-type CookieConsentAvailableLanguage = string;
-
-type CookieConsentTranslations = {
-  title: string;
-  description: string;
-  essential: string;
-  marketing: string;
-  analytics: string;
-  other: string;
-  required: string;
-  privacyPolicyInfo: string;
-  privacyPolicy: string;
-  saveSelection: string;
-  disableAll: string;
-  acceptAll: string;
-};
-
-const CookieConsentDefaultTranslations: Record<
-  string,
-  CookieConsentTranslations
-> = {
-  en: {
-    title: "Cookie Preferences",
-    description:
-      "We use cookies to enhance your experience. Select which cookies you want to allow.",
-    essential: "Essential",
-    marketing: "Marketing",
-    analytics: "Analytics",
-    other: "Other",
-    required: "Required",
-    privacyPolicyInfo: "For more information, please read our",
-    privacyPolicy: "Privacy Policy",
-    saveSelection: "Save Selection",
-    disableAll: "Disable All",
-    acceptAll: "Accept All",
-  },
-};
-
 type CookieConsentProps = {
   tags?: CookieTagObject[];
   snippets?: CookieSnippetObject[];
@@ -485,18 +452,13 @@ export const CookieConsent = ({
   customStorageKey,
   modalIsOpen = undefined,
 }: CookieConsentProps) => {
-  let [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<
     CookieConsentObject["category"][]
   >([]);
   const [savedCookieSettings, setSavedCookieSettings] = useState<
     string[] | undefined
   >();
-
-  if (modalIsOpen !== undefined) {
-    // Note: This doesn't actually control isOpen properly in the original
-    // Keeping original behavior
-  }
 
   const storageKey = customStorageKey ?? DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
 
