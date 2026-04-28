@@ -33,19 +33,13 @@ const fadeIn = keyframes`
 // Color system
 const COLORS = {
   primary: "#0070f3",
-  primaryDark: "#005cc5",
-  primaryLight: "#e6f7ff",
+  primaryLight: "#eaeaea",
   textPrimary: "#333333",
   textSecondary: "#666666",
-  textLight: "#999999",
-  border: "#eaeaea",
-  borderLight: "#f0f0f0",
   borderInput: "#d0d0d0",
-  borderInputHover: "#b3b3b3",
+  borderInputHover: "#060303",
   background: "#ffffff",
   backgroundOff: "#f9f9f9",
-  backgroundHover: "#f5f5f5",
-  backgroundDisabled: "#f0f0f0",
   overlay: "rgba(0, 0, 0, 0.5)",
   shadow: "rgba(0, 0, 0, 0.15)",
 };
@@ -106,7 +100,7 @@ const CategoriesContainer = styled.div`
 `;
 
 const Category = styled.div`
-  border: 1px solid ${COLORS.border};
+  border: 1px solid ${COLORS.primaryLight};
   border-radius: 6px;
   overflow: hidden;
 `;
@@ -182,7 +176,7 @@ const AcceptButton = styled.button`
   animation-delay: 0.15s;
 
   &:hover {
-    background-color: ${COLORS.primaryDark};
+    background-color: ${COLORS.primary};
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(0, 112, 243, 0.2);
   }
@@ -202,7 +196,7 @@ const DisableButton = styled.button`
   animation-delay: 0.25s;
 
   &:hover {
-    background-color: ${COLORS.backgroundHover};
+    background-color: ${COLORS.backgroundOff};
     transform: translateY(-1px);
   }
 `;
@@ -221,7 +215,7 @@ const SaveButton = styled.button`
   animation-delay: 0.35s;
 
   &:hover {
-    background-color: ${COLORS.backgroundHover};
+    background-color: ${COLORS.backgroundOff};
     transform: translateY(-1px);
   }
 `;
@@ -281,13 +275,13 @@ const Checkmark = styled.span<{ isService?: boolean }>`
   }
 
   ${CheckboxContainer} input:disabled ~ & {
-    background-color: ${COLORS.backgroundDisabled};
+    background-color: ${COLORS.backgroundOff};
     border-color: ${COLORS.borderInput};
     cursor: not-allowed;
   }
 
   ${CheckboxContainer} input:disabled ~ &:after {
-    border-color: ${COLORS.textLight};
+    border-color: ${COLORS.borderInput};
   }
 `;
 
