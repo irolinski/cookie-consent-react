@@ -66,7 +66,7 @@ const CookieConsentReactContainer = styled.div<{
 }>`
   font-family: ${(props) =>
     props.$fontFamily ||
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"};
+    `'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif`};
 `;
 
 const Overlay = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
