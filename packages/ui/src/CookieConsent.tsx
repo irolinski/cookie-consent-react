@@ -59,10 +59,17 @@ const mergeColors = (customColors?: CookieConsentProps["customColors"]) => ({
 });
 
 // Styled Components
-const Overlay = styled.div<{
-  $colors: ReturnType<typeof mergeColors>;
+
+const CookieConsentReactContainer = styled.div<{
+  $colors?: ReturnType<typeof mergeColors>;
   $fontFamily?: string;
 }>`
+  font-family: ${(props) =>
+    props.$fontFamily ||
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"};
+`;
+
+const Overlay = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -74,9 +81,6 @@ const Overlay = styled.div<{
   align-items: center;
   z-index: 9999;
   padding: 12px;
-  font-family: ${(props) =>
-    props.$fontFamily ||
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"};
 `;
 
 const Modal = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
@@ -574,7 +578,7 @@ export const CookieConsent = ({
   const actualIsOpen = modalIsOpen !== undefined ? modalIsOpen : isOpen;
 
   return (
-    <React.Fragment>
+    <CookieConsentReactContainer $fontFamily={customFontFamily}>
       {savedCookieSettings !== undefined && (
         <React.Fragment>
           {tags &&
@@ -598,7 +602,7 @@ export const CookieConsent = ({
         </React.Fragment>
       )}
       {actualIsOpen ? (
-        <Overlay $colors={colors} $fontFamily={customFontFamily}>
+        <Overlay $colors={colors}>
           <Modal $colors={colors}>
             <ModalHeader $colors={colors}>
               <h2>{locales.title}</h2>
@@ -756,6 +760,6 @@ export const CookieConsent = ({
       ) : (
         <></>
       )}
-    </React.Fragment>
+    </CookieConsentReactContainer>
   );
 };
