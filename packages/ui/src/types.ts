@@ -3,15 +3,9 @@ import {
   CookieConsentAvailableLanguage,
   CookieConsentTranslations,
 } from "./locales";
+import { DEFAULT_COOKIE_CATEGORIES } from "./constants";
 
-const COOKIE_CATEGORIES = [
-  "essential",
-  "marketing",
-  "analytics",
-  "other",
-] as const;
-
-export type CookieCategoryType = (typeof COOKIE_CATEGORIES)[number];
+export type CookieCategoryType = (typeof DEFAULT_COOKIE_CATEGORIES)[number];
 
 export type CookieConsentObject = {
   category: CookieCategoryType;
