@@ -1,3 +1,3 @@
 import { CookieConsent } from "./CookieConsent";
 
-export default CookieConsent;
+export { CookieConsent };
