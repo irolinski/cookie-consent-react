@@ -486,6 +486,7 @@ export const CookieConsent = ({
   customColors,
   customFontFamily,
 }: CookieConsentProps) => {
+  // COMPONENT STATE
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<
     CookieConsentObject["category"][]
@@ -494,6 +495,7 @@ export const CookieConsent = ({
     string[] | undefined
   >();
 
+  // CUSTOM/DEFAULT VARIABLES
   const storageKey = customStorageKey ?? DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
   const colors = mergeColors(customColors);
 
@@ -502,15 +504,7 @@ export const CookieConsent = ({
     locales = customLocales;
   }
 
-  useEffect(() => {
-    const cookieConsentStoredValue = localStorage.getItem(storageKey);
-    const newCookieSettings = cookieConsentStoredValue
-      ? cookieConsentStoredValue.split(",")
-      : undefined;
-
-    setSavedCookieSettings(newCookieSettings);
-  }, [customStorageKey, storageKey]);
-
+  // PROP VALUE PROCESSING
   const passedCategories = getPassedCategories([
     tags,
     snippets,
@@ -521,6 +515,7 @@ export const CookieConsent = ({
     (category) => categorySettings[category]?.required,
   );
 
+  // HANDLER FUNCTIONS
   const handleSaveSettings = (
     categories: CookieConsentObject["category"][] | [],
   ) => {
@@ -540,6 +535,16 @@ export const CookieConsent = ({
   const defaultDeclineAll = () => {
     handleSaveSettings([]);
   };
+
+  // useEffects
+  useEffect(() => {
+    const cookieConsentStoredValue = localStorage.getItem(storageKey);
+    const newCookieSettings = cookieConsentStoredValue
+      ? cookieConsentStoredValue.split(",")
+      : undefined;
+
+    setSavedCookieSettings(newCookieSettings);
+  }, [customStorageKey, storageKey]);
 
   useEffect(() => {
     handlerFunctions?.forEach((handleFunctionObject) => {
@@ -562,6 +567,7 @@ export const CookieConsent = ({
     }
   }, [savedCookieSettings, modalIsOpen]);
 
+  // isOpen -- overwrite if prop exists
   const actualIsOpen = modalIsOpen !== undefined ? modalIsOpen : isOpen;
 
   return (
