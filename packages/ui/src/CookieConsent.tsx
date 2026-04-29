@@ -2,6 +2,11 @@
 
 import React, { JSX, useEffect, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
+import {
+  CookieConsentAvailableLanguage,
+  CookieConsentDefaultTranslations,
+  CookieConsentTranslations,
+} from "./locales";
 
 const slideUp = keyframes`
   from {
@@ -28,45 +33,56 @@ const fadeIn = keyframes`
 // Color system
 const COLORS = {
   primary: "#0070f3",
-  primaryDark: "#005cc5",
-  primaryLight: "#e6f7ff",
+  primaryLight: "#eaeaea",
   textPrimary: "#333333",
   textSecondary: "#666666",
-  textLight: "#999999",
-  border: "#eaeaea",
-  borderLight: "#f0f0f0",
   borderInput: "#d0d0d0",
-  borderInputHover: "#b3b3b3",
+  borderInputHover: "#060303",
   background: "#ffffff",
   backgroundOff: "#f9f9f9",
-  backgroundHover: "#f5f5f5",
-  backgroundDisabled: "#f0f0f0",
   overlay: "rgba(0, 0, 0, 0.5)",
   shadow: "rgba(0, 0, 0, 0.15)",
 };
 
+// Helper function to merge custom colors with defaults
+const mergeColors = (customColors?: CookieConsentProps["customColors"]) => ({
+  primary: customColors?.primary ?? COLORS.primary,
+  primaryLight: customColors?.primaryLight ?? COLORS.primaryLight,
+  textPrimary: customColors?.textPrimary ?? COLORS.textPrimary,
+  textSecondary: customColors?.textSecondary ?? COLORS.textSecondary,
+  borderInput: customColors?.borderInput ?? COLORS.borderInput,
+  borderInputHover: customColors?.borderInputHover ?? COLORS.borderInputHover,
+  background: customColors?.background ?? COLORS.background,
+  backgroundOff: customColors?.backgroundOff ?? COLORS.backgroundOff,
+  overlay: customColors?.overlay ?? COLORS.overlay,
+  shadow: customColors?.shadow ?? COLORS.shadow,
+});
+
 // Styled Components
-const Overlay = styled.div`
+const Overlay = styled.div<{
+  $colors: ReturnType<typeof mergeColors>;
+  $fontFamily?: string;
+}>`
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   top: 0;
-  background-color: ${COLORS.overlay};
+  background-color: ${(props) => props.$colors.overlay};
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
   padding: 12px;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: ${(props) =>
+    props.$fontFamily ||
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"};
 `;
 
-const Modal = styled.div`
-  background-color: ${COLORS.background};
+const Modal = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
+  background-color: ${(props) => props.$colors.background};
   border-radius: 8px;
-  box-shadow: 0 4px 20px ${COLORS.shadow};
+  box-shadow: 0 4px 20px ${(props) => props.$colors.shadow};
   width: 100%;
   max-width: 600px;
   max-height: 90vh;
@@ -75,20 +91,20 @@ const Modal = styled.div`
   animation: ${slideUp} 0.3s ease-out;
 `;
 
-const ModalHeader = styled.div`
+const ModalHeader = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   margin-bottom: 12px;
 
   h2 {
     font-size: 20px;
     font-weight: 600;
-    color: ${COLORS.textPrimary};
+    color: ${(props) => props.$colors.textPrimary};
     margin: 0 0 8px 0;
   }
 
   p {
     font-size: 13px;
     line-height: 1.4;
-    color: ${COLORS.textSecondary};
+    color: ${(props) => props.$colors.textSecondary};
     margin: 0;
   }
 `;
@@ -100,18 +116,18 @@ const CategoriesContainer = styled.div`
   margin-bottom: 12px;
 `;
 
-const Category = styled.div`
-  border: 1px solid ${COLORS.border};
+const Category = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
+  border: 1px solid ${(props) => props.$colors.primaryLight};
   border-radius: 6px;
   overflow: hidden;
 `;
 
-const CategoryHeader = styled.div`
+const CategoryHeader = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 12px;
-  background-color: ${COLORS.backgroundOff};
+  background-color: ${(props) => props.$colors.backgroundOff};
 `;
 
 const CategoryInfo = styled.div`
@@ -119,30 +135,30 @@ const CategoryInfo = styled.div`
   align-items: center;
 `;
 
-const CategoryName = styled.span`
+const CategoryName = styled.span<{ $colors: ReturnType<typeof mergeColors> }>`
   font-weight: 600;
   font-size: 14px;
-  color: ${COLORS.textPrimary};
+  color: ${(props) => props.$colors.textPrimary};
   margin-left: 8px;
 `;
 
-const RequiredBadge = styled.span`
+const RequiredBadge = styled.span<{ $colors: ReturnType<typeof mergeColors> }>`
   display: inline-block;
-  background-color: ${COLORS.primaryLight};
-  color: ${COLORS.primary};
+  background-color: ${(props) => props.$colors.primaryLight};
+  color: ${(props) => props.$colors.primary};
   font-size: 11px;
   padding: 1px 6px;
   border-radius: 10px;
   margin-left: 8px;
 `;
 
-const PrivacyPolicy = styled.div`
+const PrivacyPolicy = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   margin-bottom: 12px;
   font-size: 12px;
-  color: ${COLORS.textSecondary};
+  color: ${(props) => props.$colors.textSecondary};
 
   a {
-    color: ${COLORS.primary};
+    color: ${(props) => props.$colors.primary};
     text-decoration: none;
 
     &:hover {
@@ -163,60 +179,62 @@ const buttonFadeIn = css`
   animation: ${fadeIn} 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
 `;
 
-const AcceptButton = styled.button`
+const AcceptButton = styled.button<{ $colors: ReturnType<typeof mergeColors> }>`
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: ${COLORS.primary};
-  color: ${COLORS.background};
+  background-color: ${(props) => props.$colors.primary};
+  color: ${(props) => props.$colors.background};
   border: 1px solid rgba(0, 0, 0, 0);
   ${buttonFadeIn}
   animation-delay: 0.15s;
 
   &:hover {
-    background-color: ${COLORS.primaryDark};
+    background-color: ${(props) => props.$colors.primary};
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(0, 112, 243, 0.2);
   }
 `;
 
-const DisableButton = styled.button`
+const DisableButton = styled.button<{
+  $colors: ReturnType<typeof mergeColors>;
+}>`
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: ${COLORS.background};
-  color: ${COLORS.textPrimary};
-  border: 1px solid ${COLORS.borderInput};
+  background-color: ${(props) => props.$colors.background};
+  color: ${(props) => props.$colors.textPrimary};
+  border: 1px solid ${(props) => props.$colors.borderInput};
   ${buttonFadeIn}
   animation-delay: 0.25s;
 
   &:hover {
-    background-color: ${COLORS.backgroundHover};
+    background-color: ${(props) => props.$colors.backgroundOff};
     transform: translateY(-1px);
   }
 `;
 
-const SaveButton = styled.button`
+const SaveButton = styled.button<{ $colors: ReturnType<typeof mergeColors> }>`
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: ${COLORS.background};
-  color: ${COLORS.primary};
-  border: 1px solid ${COLORS.primary};
+  background-color: ${(props) => props.$colors.background};
+  color: ${(props) => props.$colors.primary};
+  border: 1px solid ${(props) => props.$colors.primary};
   ${buttonFadeIn}
   animation-delay: 0.35s;
 
   &:hover {
-    background-color: ${COLORS.backgroundHover};
+    background-color: ${(props) => props.$colors.backgroundOff};
     transform: translateY(-1px);
   }
 `;
@@ -238,21 +256,24 @@ const CheckboxContainer = styled.label`
   }
 `;
 
-const Checkmark = styled.span<{ isService?: boolean }>`
+const Checkmark = styled.span<{
+  isService?: boolean;
+  $colors: ReturnType<typeof mergeColors>;
+}>`
   position: relative;
   height: ${(props) => (props.isService ? "14px" : "18px")};
   width: ${(props) => (props.isService ? "14px" : "18px")};
-  background-color: ${COLORS.background};
-  border: 2px solid ${COLORS.borderInput};
+  background-color: ${(props) => props.$colors.background};
+  border: 2px solid ${(props) => props.$colors.borderInput};
   border-radius: 4px;
 
   ${CheckboxContainer}:hover input ~ & {
-    border-color: ${COLORS.borderInputHover};
+    border-color: ${(props) => props.$colors.borderInputHover};
   }
 
   ${CheckboxContainer} input:checked ~ & {
-    background-color: ${COLORS.primary};
-    border-color: ${COLORS.primary};
+    background-color: ${(props) => props.$colors.primary};
+    border-color: ${(props) => props.$colors.primary};
   }
 
   &:after {
@@ -270,19 +291,19 @@ const Checkmark = styled.span<{ isService?: boolean }>`
     top: ${(props) => (props.isService ? "1px" : "2px")};
     width: ${(props) => (props.isService ? "4px" : "5px")};
     height: ${(props) => (props.isService ? "7px" : "9px")};
-    border: solid ${COLORS.background};
+    border: solid ${(props) => props.$colors.background};
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
 
   ${CheckboxContainer} input:disabled ~ & {
-    background-color: ${COLORS.backgroundDisabled};
-    border-color: ${COLORS.borderInput};
+    background-color: ${(props) => props.$colors.backgroundOff};
+    border-color: ${(props) => props.$colors.borderInput};
     cursor: not-allowed;
   }
 
   ${CheckboxContainer} input:disabled ~ &:after {
-    border-color: ${COLORS.textLight};
+    border-color: ${(props) => props.$colors.borderInput};
   }
 `;
 
@@ -300,9 +321,12 @@ const Switch = styled.label`
   }
 `;
 
-const Slider = styled.span`
+const Slider = styled.span<{
+  $isRequired?: boolean;
+  $colors: ReturnType<typeof mergeColors>;
+}>`
   position: absolute;
-  cursor: pointer;
+  cursor: ${(props) => (props.$isRequired ? "not-allowed" : "pointer")};
   top: 0;
   left: 0;
   right: 0;
@@ -324,7 +348,7 @@ const Slider = styled.span`
   }
 
   input:checked + & {
-    background-color: #2196f3;
+    background-color: ${(props) => (props.$isRequired ? "#ccc" : "#2196f3")};
   }
 
   input:focus + & {
@@ -393,44 +417,6 @@ type CookieCategorySettings = {
   };
 };
 
-type CookieConsentAvailableLanguage = string;
-
-type CookieConsentTranslations = {
-  title: string;
-  description: string;
-  essential: string;
-  marketing: string;
-  analytics: string;
-  other: string;
-  required: string;
-  privacyPolicyInfo: string;
-  privacyPolicy: string;
-  saveSelection: string;
-  disableAll: string;
-  acceptAll: string;
-};
-
-const CookieConsentDefaultTranslations: Record<
-  string,
-  CookieConsentTranslations
-> = {
-  en: {
-    title: "Cookie Preferences",
-    description:
-      "We use cookies to enhance your experience. Select which cookies you want to allow.",
-    essential: "Essential",
-    marketing: "Marketing",
-    analytics: "Analytics",
-    other: "Other",
-    required: "Required",
-    privacyPolicyInfo: "For more information, please read our",
-    privacyPolicy: "Privacy Policy",
-    saveSelection: "Save Selection",
-    disableAll: "Disable All",
-    acceptAll: "Accept All",
-  },
-};
-
 type CookieConsentProps = {
   tags?: CookieTagObject[];
   snippets?: CookieSnippetObject[];
@@ -445,6 +431,19 @@ type CookieConsentProps = {
   privacyPolicyUrl?: string;
   customStorageKey?: string;
   modalIsOpen?: boolean | undefined;
+  customColors?: {
+    primary?: string;
+    primaryLight?: string;
+    textPrimary?: string;
+    textSecondary?: string;
+    borderInput?: string;
+    borderInputHover?: string;
+    background?: string;
+    backgroundOff?: string;
+    overlay?: string;
+    shadow?: string;
+  };
+  customFontFamily?: string;
 };
 
 const getPassedCategories = (
@@ -484,8 +483,10 @@ export const CookieConsent = ({
   privacyPolicyUrl,
   customStorageKey,
   modalIsOpen = undefined,
+  customColors,
+  customFontFamily,
 }: CookieConsentProps) => {
-  let [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<
     CookieConsentObject["category"][]
   >([]);
@@ -493,12 +494,8 @@ export const CookieConsent = ({
     string[] | undefined
   >();
 
-  if (modalIsOpen !== undefined) {
-    // Note: This doesn't actually control isOpen properly in the original
-    // Keeping original behavior
-  }
-
   const storageKey = customStorageKey ?? DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
+  const colors = mergeColors(customColors);
 
   let locales = CookieConsentDefaultTranslations[language];
   if (customLocales) {
@@ -592,9 +589,9 @@ export const CookieConsent = ({
         </React.Fragment>
       )}
       {actualIsOpen ? (
-        <Overlay>
-          <Modal>
-            <ModalHeader>
+        <Overlay $colors={colors} $fontFamily={customFontFamily}>
+          <Modal $colors={colors}>
+            <ModalHeader $colors={colors}>
               <h2>{locales.title}</h2>
               <p>{locales.description}</p>
             </ModalHeader>
@@ -603,16 +600,15 @@ export const CookieConsent = ({
               {passedCategories.map((category) => (
                 <React.Fragment key={category}>
                   {categoriesList === "checkboxes" && (
-                    <Category>
-                      <CategoryHeader>
+                    <Category $colors={colors}>
+                      <CategoryHeader $colors={colors}>
                         <CategoryInfo>
                           <CheckboxContainer>
                             <input
                               type="checkbox"
                               checked={
                                 selectedCategories.includes(category) ||
-                                (categorySettings[category] &&
-                                  categorySettings[category]?.required)
+                                requiredCategories.includes(category)
                               }
                               onChange={() =>
                                 setSelectedCategories((prev) =>
@@ -626,8 +622,8 @@ export const CookieConsent = ({
                                 categorySettings[category]?.required
                               }
                             />
-                            <Checkmark />
-                            <CategoryName>
+                            <Checkmark $colors={colors} />
+                            <CategoryName $colors={colors}>
                               {categorySettings[category] &&
                               categorySettings[category]?.label
                                 ? categorySettings[category]?.label
@@ -637,7 +633,7 @@ export const CookieConsent = ({
                             </CategoryName>
                             {categorySettings[category] &&
                               categorySettings[category]?.required && (
-                                <RequiredBadge>
+                                <RequiredBadge $colors={colors}>
                                   {locales.required}
                                 </RequiredBadge>
                               )}
@@ -647,16 +643,15 @@ export const CookieConsent = ({
                     </Category>
                   )}
                   {categoriesList === "switches" && (
-                    <Category>
-                      <CategoryHeader>
+                    <Category $colors={colors}>
+                      <CategoryHeader $colors={colors}>
                         <CategoryInfo>
                           <Switch>
                             <input
                               type="checkbox"
                               checked={
                                 selectedCategories.includes(category) ||
-                                (categorySettings[category] &&
-                                  categorySettings[category]?.required)
+                                requiredCategories.includes(category)
                               }
                               onChange={() =>
                                 setSelectedCategories((prev) =>
@@ -670,9 +665,14 @@ export const CookieConsent = ({
                                 categorySettings[category]?.required
                               }
                             />
-                            <Slider />
+                            <Slider
+                              $isRequired={requiredCategories.includes(
+                                category,
+                              )}
+                              $colors={colors}
+                            />
                           </Switch>
-                          <CategoryName>
+                          <CategoryName $colors={colors}>
                             {categorySettings[category] &&
                             categorySettings[category]?.label
                               ? categorySettings[category]?.label
@@ -682,7 +682,9 @@ export const CookieConsent = ({
                           </CategoryName>
                           {categorySettings[category] &&
                             categorySettings[category]?.required && (
-                              <RequiredBadge>{locales.required}</RequiredBadge>
+                              <RequiredBadge $colors={colors}>
+                                {locales.required}
+                              </RequiredBadge>
                             )}
                         </CategoryInfo>
                       </CategoryHeader>
@@ -693,7 +695,7 @@ export const CookieConsent = ({
             </CategoriesContainer>
 
             {privacyPolicyUrl && (
-              <PrivacyPolicy>
+              <PrivacyPolicy $colors={colors}>
                 <p>
                   {locales.privacyPolicyInfo}{" "}
                   <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
@@ -704,6 +706,7 @@ export const CookieConsent = ({
             <ResponsiveActions>
               {selectedCategories.length || requiredCategories.length ? (
                 <ResponsiveSaveButton
+                  $colors={colors}
                   onClick={() =>
                     onAcceptSelection
                       ? onAcceptSelection(defaultAcceptSelection)
@@ -716,6 +719,7 @@ export const CookieConsent = ({
                 <React.Fragment>
                   {requiredCategories.length === 0 && (
                     <ResponsiveDisableButton
+                      $colors={colors}
                       onClick={() =>
                         onDeclineAll
                           ? onDeclineAll(defaultDeclineAll)
@@ -728,6 +732,7 @@ export const CookieConsent = ({
                 </React.Fragment>
               )}
               <ResponsiveAcceptButton
+                $colors={colors}
                 onClick={() =>
                   onAcceptAll
                     ? onAcceptAll(defaultAcceptAll)
