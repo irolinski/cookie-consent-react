@@ -1,6 +1,6 @@
 "use client";
 
-import CookieConsent from "cookie-consent-react";
+import { CookieConsent } from "cookie-consent-react";
 
 const exampleFunc = () => {
   console.log("this function should run everytime");
