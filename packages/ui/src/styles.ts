@@ -33,8 +33,6 @@ export const mergeColors = (
   textPrimary: customColors?.textPrimary ?? DEFAULT_COLORS.textPrimary,
   textSecondary: customColors?.textSecondary ?? DEFAULT_COLORS.textSecondary,
   borderInput: customColors?.borderInput ?? DEFAULT_COLORS.borderInput,
-  borderInputHover:
-    customColors?.borderInputHover ?? DEFAULT_COLORS.borderInputHover,
   background: customColors?.background ?? DEFAULT_COLORS.background,
   backgroundOff: customColors?.backgroundOff ?? DEFAULT_COLORS.backgroundOff,
   overlay: customColors?.overlay ?? DEFAULT_COLORS.overlay,
@@ -260,24 +258,36 @@ export const CheckboxContainer = styled.label`
   }
 `;
 
-export const Checkmark = styled.span<{
-  isService?: boolean;
+export const Checkmark = styled.div<{
   $colors: ReturnType<typeof mergeColors>;
+  $isRequired: boolean;
 }>`
   position: relative;
-  height: ${(props) => (props.isService ? "14px" : "18px")};
-  width: ${(props) => (props.isService ? "14px" : "18px")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: 18px;
   background-color: ${(props) => props.$colors.background};
-  border: 2px solid ${(props) => props.$colors.borderInput};
+  border: ${(props) =>
+    !props.$isRequired
+      ? `2px solid
+ ${props.$colors.borderInput}`
+      : null};
   border-radius: 4px;
+  transition: border-color 0.25s ease-in-out;
 
   ${CheckboxContainer}:hover input ~ & {
-    border-color: ${(props) => props.$colors.borderInputHover};
+    border-color: ${(props) =>
+      `color-mix(in srgb, ${props.$colors.borderInput}, transparent 40%)`};
   }
 
   ${CheckboxContainer} input:checked ~ & {
     background-color: ${(props) => props.$colors.primary};
-    border-color: ${(props) => props.$colors.primary};
+    border-color: ${(props) =>
+      props.$isRequired
+        ? `color-mix(in srgb, ${props.$colors.primary}, transparent 40%)`
+        : props.$colors.primary};
   }
 
   &:after {
@@ -290,25 +300,24 @@ export const Checkmark = styled.span<{
     display: block;
   }
 
-  &:after {
-    left: ${(props) => (props.isService ? "4px" : "5px")};
-    top: ${(props) => (props.isService ? "1px" : "2px")};
-    width: ${(props) => (props.isService ? "4px" : "5px")};
-    height: ${(props) => (props.isService ? "7px" : "9px")};
-    border: solid ${(props) => props.$colors.background};
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
-
   ${CheckboxContainer} input:disabled ~ & {
-    background-color: ${(props) => props.$colors.backgroundOff};
-    border-color: ${(props) => props.$colors.borderInput};
+    background-color: ${(props) =>
+      props.$isRequired
+        ? `color-mix(in srgb, ${props.$colors.primary}, transparent 40%)`
+        : props.$colors.primary};
     cursor: not-allowed;
     opacity: 0.6;
   }
 
   ${CheckboxContainer} input:disabled ~ &:after {
-    border-color: ${(props) => props.$colors.borderInput};
+    border-color: ${(props) =>
+      props.$isRequired
+        ? `color-mix(in srgb, ${props.$colors.primary}, transparent 40%)`
+        : props.$colors.primary};
+  }
+
+  & > span {
+    color: ${(props) => props.$colors.background};
   }
 `;
 

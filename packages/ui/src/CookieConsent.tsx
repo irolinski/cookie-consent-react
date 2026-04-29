@@ -218,7 +218,14 @@ export const CookieConsent = ({
                                 categorySettings[category]?.required
                               }
                             />
-                            <Checkmark $colors={colors} />
+                            <Checkmark
+                              $colors={colors}
+                              $isRequired={requiredCategories.includes(
+                                category,
+                              )}
+                            >
+                              <span>&#10003;</span>
+                            </Checkmark>
                             <CategoryName $colors={colors}>
                               {categorySettings[category] &&
                               categorySettings[category]?.label
