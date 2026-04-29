@@ -1,6 +1,6 @@
 {
   "name": "cookie-consent-react",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,7 +10,6 @@
   ],
   "exports": {
     ".": {
-      "development": "./src/index.tsx",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
@@ -20,7 +19,8 @@
     "build": "tsup src/index.tsx --format cjs,esm --dts --external react"
   },
   "peerDependencies": {
-    "react": ">=17.0.0"
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -33,8 +33,6 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
     "styled-components": "^6.4.1"
   }
 }
