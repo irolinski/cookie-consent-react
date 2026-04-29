@@ -163,6 +163,7 @@ const PrivacyPolicy = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
 
     &:hover {
       text-decoration: underline;
+      filter: brightness(0.9);
     }
   }
 `;
@@ -188,14 +189,14 @@ const AcceptButton = styled.button<{ $colors: ReturnType<typeof mergeColors> }>`
   transition: all 0.2s ease;
   background-color: ${(props) => props.$colors.primary};
   color: ${(props) => props.$colors.background};
-  border: 1px solid rgba(0, 0, 0, 0);
+  border: 1px solid transparent;
   ${buttonFadeIn}
   animation-delay: 0.15s;
 
   &:hover {
-    background-color: ${(props) => props.$colors.primary};
+    filter: brightness(0.9);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 112, 243, 0.2);
+    box-shadow: 0 2px 8px ${(props) => props.$colors.shadow};
   }
 `;
 
@@ -217,6 +218,7 @@ const DisableButton = styled.button<{
   &:hover {
     background-color: ${(props) => props.$colors.backgroundOff};
     transform: translateY(-1px);
+    filter: brightness(0.98);
   }
 `;
 
@@ -236,6 +238,7 @@ const SaveButton = styled.button<{ $colors: ReturnType<typeof mergeColors> }>`
   &:hover {
     background-color: ${(props) => props.$colors.backgroundOff};
     transform: translateY(-1px);
+    filter: brightness(0.98);
   }
 `;
 
@@ -300,6 +303,7 @@ const Checkmark = styled.span<{
     background-color: ${(props) => props.$colors.backgroundOff};
     border-color: ${(props) => props.$colors.borderInput};
     cursor: not-allowed;
+    opacity: 0.6;
   }
 
   ${CheckboxContainer} input:disabled ~ &:after {
@@ -348,18 +352,22 @@ const Slider = styled.span<{
   }
 
   input:checked + & {
-    background-color: ${(props) => (props.$isRequired ? "#ccc" : "#2196f3")};
+    background-color: ${(props) => props.$colors.primary};
   }
 
-  input:focus + & {
-    box-shadow: 0 0 1px #2196f3;
-  }
-
-  input:checked + &:before {
+  input:checked + &::before {
     transform: translateX(16px);
   }
-`;
 
+  ${(props) =>
+    props.$isRequired &&
+    `
+    input:checked + & {
+      background-color: ${props.$colors.primary};
+      box-shadow: inset 0 0 0 1000px rgba(250, 250, 250, 0.4);
+    }
+  `}
+`;
 // Responsive styles
 const ResponsiveActions = styled(Actions)`
   @media (max-width: 640px) {
