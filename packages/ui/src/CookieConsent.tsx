@@ -119,7 +119,7 @@ export const CookieConsent = ({
   };
 
   const defaultAcceptSelection = () => {
-    handleSaveSettings([...selectedCategories]);
+    handleSaveSettings([...selectedCategories, ...requiredCategories]);
   };
 
   const defaultDeclineAll = () => {
