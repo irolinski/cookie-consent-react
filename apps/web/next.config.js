@@ -1,4 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = { transpilePackages: ["cookie-consent-react"] };
 
 export default nextConfig;
