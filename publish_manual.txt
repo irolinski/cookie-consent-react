@@ -1,0 +1,6 @@
+
+to build -> pnpm build --filter=cookie-consent-react
+to publish -> cd packages/ui -> npm publish --access --public
+
+
+for development add `"development": "./src/index.tsx",` to exports/. in package.json
