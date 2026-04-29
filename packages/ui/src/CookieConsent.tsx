@@ -1,12 +1,18 @@
 "use client";
 
-import React, { JSX, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import {
-  CookieConsentAvailableLanguage,
   CookieConsentDefaultTranslations,
   CookieConsentTranslations,
 } from "./locales";
+import {
+  CookieConsentProps,
+  CookieConsentObject,
+  CookieCategoryType,
+  CookieTagObject,
+  CookieSnippetObject,
+} from "./types";
 
 const slideUp = keyframes`
   from {
@@ -394,64 +400,6 @@ const ResponsiveSaveButton = styled(SaveButton)`
 
 // Types from original
 const DEFAULT_COOKIE_CONSENT_STORAGE_KEY = "cookie-consent";
-const COOKIE_CATEGORIES = [
-  "essential",
-  "marketing",
-  "analytics",
-  "other",
-] as const;
-
-type CookieCategoryType = (typeof COOKIE_CATEGORIES)[number];
-
-type CookieConsentObject = {
-  category: CookieCategoryType;
-};
-
-type CookieTagObject = CookieConsentObject & { tag: JSX.Element };
-
-type CookieSnippetObject = CookieConsentObject & {
-  snippet: JSX.Element;
-};
-
-type CookieHandlerFunctionObject = CookieConsentObject & {
-  function: () => void;
-};
-
-type CookieCategorySettings = {
-  [K in CookieCategoryType]?: {
-    required?: boolean;
-    label?: string;
-  };
-};
-
-type CookieConsentProps = {
-  tags?: CookieTagObject[];
-  snippets?: CookieSnippetObject[];
-  handlerFunctions?: CookieHandlerFunctionObject[];
-  language?: CookieConsentAvailableLanguage;
-  customLocales?: CookieConsentTranslations;
-  categorySettings?: CookieCategorySettings;
-  categoriesList?: "hide" | "checkboxes" | "switches";
-  onAcceptAll?: (defaultHandler: () => void) => void;
-  onAcceptSelection?: (defaultHandler: () => void) => void;
-  onDeclineAll?: (defaultHandler: () => void) => void;
-  privacyPolicyUrl?: string;
-  customStorageKey?: string;
-  modalIsOpen?: boolean | undefined;
-  customColors?: {
-    primary?: string;
-    primaryLight?: string;
-    textPrimary?: string;
-    textSecondary?: string;
-    borderInput?: string;
-    borderInputHover?: string;
-    background?: string;
-    backgroundOff?: string;
-    overlay?: string;
-    shadow?: string;
-  };
-  customFontFamily?: string;
-};
 
 const getPassedCategories = (
   allCookieObjects: (CookieConsentObject[] | undefined)[],
