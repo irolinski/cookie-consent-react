@@ -28,7 +28,10 @@ export type CookieCategorySettings = {
   };
 };
 
+export type CookieConsentMode = "modal" | "banner";
+
 export type CookieConsentProps = {
+  mode: CookieConsentMode;
   tags?: CookieTagObject[];
   snippets?: CookieSnippetObject[];
   handlerFunctions?: CookieHandlerFunctionObject[];
@@ -56,3 +59,5 @@ export type CookieConsentProps = {
   };
   customFontFamily?: string;
 };
+
+export type CookieConsentModalProps = Omit<CookieConsentProps, "mode">;
