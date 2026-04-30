@@ -13,7 +13,6 @@ export const DEFAULT_COLORS = {
   textPrimary: "#333333",
   textSecondary: "#666666",
   borderInput: "#d0d0d0",
-  borderInputHover: "#060303",
   background: "#ffffff",
   backgroundOff: "#f9f9f9",
   overlay: "rgba(0, 0, 0, 0.5)",

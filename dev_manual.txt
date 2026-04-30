@@ -1,0 +1,12 @@
+
+to build -> pnpm build --filter=cookie-consent-react
+to publish -> cd packages/ui -> npm publish --access --public
+
+
+for development add     "./*": "./src/*.tsx", to exports in package.json
+for production add ` "./" {     
+"import": "./dist/index.mjs",
+"require": "./dist/index.js",
+"types": "./dist/index.d.ts"
+}
+`

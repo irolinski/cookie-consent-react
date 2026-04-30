@@ -119,7 +119,7 @@ export const CookieConsent = ({
   };
 
   const defaultAcceptSelection = () => {
-    handleSaveSettings([...selectedCategories]);
+    handleSaveSettings([...selectedCategories, ...requiredCategories]);
   };
 
   const defaultDeclineAll = () => {
@@ -145,13 +145,11 @@ export const CookieConsent = ({
 
   useEffect(() => {
     if (modalIsOpen !== undefined) {
-      if (!savedCookieSettings) {
-        setIsOpen(true);
-      } else {
-        setIsOpen(false);
-      }
+      return;
     } else {
-      if (!savedCookieSettings) {
+      if (Array.isArray(savedCookieSettings)) {
+        setIsOpen(false);
+      } else {
         setIsOpen(true);
       }
     }
@@ -218,7 +216,14 @@ export const CookieConsent = ({
                                 categorySettings[category]?.required
                               }
                             />
-                            <Checkmark $colors={colors} />
+                            <Checkmark
+                              $colors={colors}
+                              $isRequired={requiredCategories.includes(
+                                category,
+                              )}
+                            >
+                              <span>&#10003;</span>
+                            </Checkmark>
                             <CategoryName $colors={colors}>
                               {categorySettings[category] &&
                               categorySettings[category]?.label
