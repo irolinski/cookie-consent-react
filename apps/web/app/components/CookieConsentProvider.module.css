@@ -1,0 +1,40 @@
+.cookieConsentProvider {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonWrapper {
+  z-index: 100;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.removeBtn {
+  z-index: 100;
+  padding: 12px 20px;
+  width: 100px;
+  border-radius: 15px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+
+  background: rgba(253, 252, 252, 0.85);
+  color: #111;
+  backdrop-filter: blur(10px);
+
+  transition: all 0.25s ease;
+}
+
+.removeBtn:hover {
+  transform: translateY(-2px);
+  background: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
