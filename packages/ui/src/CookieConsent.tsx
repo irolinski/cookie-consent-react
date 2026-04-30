@@ -1,40 +1,19 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  CookieConsentDefaultTranslations,
-  CookieConsentTranslations,
-} from "./locales";
+import { CookieConsentDefaultTranslations } from "./locales";
 import {
   CookieConsentProps,
   CookieConsentObject,
   CookieCategoryType,
   CookieTagObject,
   CookieSnippetObject,
+  ColorsType,
+  DefaultCookieConsentHandlersType,
 } from "./types";
 import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "./constants";
-import {
-  CategoriesContainer,
-  Category,
-  CategoryHeader,
-  CategoryInfo,
-  CategoryName,
-  CheckboxContainer,
-  Checkmark,
-  CookieConsentReactContainer,
-  mergeColors,
-  Modal,
-  ModalHeader,
-  Overlay,
-  PrivacyPolicy,
-  RequiredBadge,
-  ResponsiveAcceptButton,
-  ResponsiveActions,
-  ResponsiveDisableButton,
-  ResponsiveSaveButton,
-  Slider,
-  Switch,
-} from "./styles";
+import { CookieConsentReactContainer, mergeColors } from "./styles";
+import { CookieConsentModal } from "./components/CookieConsentModal";
 
 const getPassedCategories = (
   allCookieObjects: (CookieConsentObject[] | undefined)[],
@@ -88,7 +67,7 @@ export const CookieConsent = ({
 
   // CUSTOM/DEFAULT VARIABLES
   const storageKey = customStorageKey ?? DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
-  const colors = mergeColors(customColors);
+  const colors: ColorsType = mergeColors(customColors);
 
   let locales = CookieConsentDefaultTranslations[language];
   if (customLocales) {
@@ -96,7 +75,7 @@ export const CookieConsent = ({
   }
 
   // PROP VALUE PROCESSING
-  const passedCategories = getPassedCategories([
+  const passedCategories: CookieCategoryType[] = getPassedCategories([
     tags,
     snippets,
     handlerFunctions,
@@ -115,16 +94,16 @@ export const CookieConsent = ({
     setSavedCookieSettings(categories);
   };
 
-  const defaultAcceptAll = () => {
-    handleSaveSettings([...passedCategories]);
-  };
-
-  const defaultAcceptSelection = () => {
-    handleSaveSettings([...selectedCategories, ...requiredCategories]);
-  };
-
-  const defaultDeclineAll = () => {
-    handleSaveSettings([]);
+  const defaultHandlers: DefaultCookieConsentHandlersType = {
+    acceptAll: () => {
+      handleSaveSettings([...passedCategories]);
+    },
+    acceptSelection: () => {
+      handleSaveSettings([...selectedCategories, ...requiredCategories]);
+    },
+    declineAll: () => {
+      handleSaveSettings([]);
+    },
   };
 
   // useEffects
@@ -186,165 +165,21 @@ export const CookieConsent = ({
       {actualIsOpen ? (
         <React.Fragment>
           {mode === "modal" && (
-            <Overlay $colors={colors}>
-              <Modal $colors={colors}>
-                <ModalHeader $colors={colors}>
-                  <h2>{locales.title}</h2>
-                  <p>{locales.description}</p>
-                </ModalHeader>
-                <CategoriesContainer>
-                  {passedCategories.map((category) => (
-                    <React.Fragment key={category}>
-                      {categoriesList === "checkboxes" && (
-                        <Category $colors={colors}>
-                          <CategoryHeader $colors={colors}>
-                            <CategoryInfo>
-                              <CheckboxContainer>
-                                <input
-                                  type="checkbox"
-                                  checked={
-                                    selectedCategories.includes(category) ||
-                                    requiredCategories.includes(category)
-                                  }
-                                  onChange={() =>
-                                    setSelectedCategories((prev) =>
-                                      selectedCategories.includes(category)
-                                        ? prev.filter((e) => e !== category)
-                                        : [...prev, category],
-                                    )
-                                  }
-                                  disabled={
-                                    categorySettings[category] &&
-                                    categorySettings[category]?.required
-                                  }
-                                />
-                                <Checkmark
-                                  $colors={colors}
-                                  $isRequired={requiredCategories.includes(
-                                    category,
-                                  )}
-                                >
-                                  <span>&#10003;</span>
-                                </Checkmark>
-                                <CategoryName $colors={colors}>
-                                  {categorySettings[category] &&
-                                  categorySettings[category]?.label
-                                    ? categorySettings[category]?.label
-                                    : locales[
-                                        category as keyof CookieConsentTranslations
-                                      ]}
-                                </CategoryName>
-                                {categorySettings[category] &&
-                                  categorySettings[category]?.required && (
-                                    <RequiredBadge $colors={colors}>
-                                      {locales.required}
-                                    </RequiredBadge>
-                                  )}
-                              </CheckboxContainer>
-                            </CategoryInfo>
-                          </CategoryHeader>
-                        </Category>
-                      )}
-                      {categoriesList === "switches" && (
-                        <Category $colors={colors}>
-                          <CategoryHeader $colors={colors}>
-                            <CategoryInfo>
-                              <Switch>
-                                <input
-                                  type="checkbox"
-                                  checked={
-                                    selectedCategories.includes(category) ||
-                                    requiredCategories.includes(category)
-                                  }
-                                  onChange={() =>
-                                    setSelectedCategories((prev) =>
-                                      selectedCategories.includes(category)
-                                        ? prev.filter((e) => e !== category)
-                                        : [...prev, category],
-                                    )
-                                  }
-                                  disabled={
-                                    categorySettings[category] &&
-                                    categorySettings[category]?.required
-                                  }
-                                />
-                                <Slider
-                                  $isRequired={requiredCategories.includes(
-                                    category,
-                                  )}
-                                  $colors={colors}
-                                />
-                              </Switch>
-                              <CategoryName $colors={colors}>
-                                {categorySettings[category] &&
-                                categorySettings[category]?.label
-                                  ? categorySettings[category]?.label
-                                  : locales[
-                                      category as keyof CookieConsentTranslations
-                                    ]}
-                              </CategoryName>
-                              {categorySettings[category] &&
-                                categorySettings[category]?.required && (
-                                  <RequiredBadge $colors={colors}>
-                                    {locales.required}
-                                  </RequiredBadge>
-                                )}
-                            </CategoryInfo>
-                          </CategoryHeader>
-                        </Category>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </CategoriesContainer>
-                {privacyPolicyUrl && (
-                  <PrivacyPolicy $colors={colors}>
-                    <p>
-                      {locales.privacyPolicyInfo}{" "}
-                      <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
-                    </p>
-                  </PrivacyPolicy>
-                )}
-                <ResponsiveActions>
-                  {selectedCategories.length || requiredCategories.length ? (
-                    <ResponsiveSaveButton
-                      $colors={colors}
-                      onClick={() =>
-                        onAcceptSelection
-                          ? onAcceptSelection(defaultAcceptSelection)
-                          : defaultAcceptSelection()
-                      }
-                    >
-                      {locales.saveSelection}
-                    </ResponsiveSaveButton>
-                  ) : (
-                    <React.Fragment>
-                      {requiredCategories.length === 0 && (
-                        <ResponsiveDisableButton
-                          $colors={colors}
-                          onClick={() =>
-                            onDeclineAll
-                              ? onDeclineAll(defaultDeclineAll)
-                              : defaultDeclineAll()
-                          }
-                        >
-                          {locales.disableAll}
-                        </ResponsiveDisableButton>
-                      )}
-                    </React.Fragment>
-                  )}
-                  <ResponsiveAcceptButton
-                    $colors={colors}
-                    onClick={() =>
-                      onAcceptAll
-                        ? onAcceptAll(defaultAcceptAll)
-                        : defaultAcceptAll()
-                    }
-                  >
-                    {locales.acceptAll}
-                  </ResponsiveAcceptButton>
-                </ResponsiveActions>
-              </Modal>
-            </Overlay>
+            <CookieConsentModal
+              colors={colors}
+              locales={locales}
+              passedCategories={passedCategories}
+              categoriesList={categoriesList}
+              selectedCategories={selectedCategories}
+              requiredCategories={requiredCategories}
+              categorySettings={categorySettings}
+              setSelectedCategories={setSelectedCategories}
+              privacyPolicyUrl={privacyPolicyUrl}
+              onAcceptAll={onAcceptAll}
+              onAcceptSelection={onAcceptSelection}
+              onDeclineAll={onDeclineAll}
+              defaultHandlers={defaultHandlers}
+            />
           )}
         </React.Fragment>
       ) : (
