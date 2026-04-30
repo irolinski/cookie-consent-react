@@ -14,6 +14,7 @@ import {
 import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "./constants";
 import { CookieConsentReactContainer, mergeColors } from "./styles";
 import { CookieConsentModal } from "./components/CookieConsentModal";
+import { CookieConsentBanner } from "./components/CookieConsentBanner";
 
 const getPassedCategories = (
   allCookieObjects: (CookieConsentObject[] | undefined)[],
@@ -166,6 +167,23 @@ export const CookieConsent = ({
         <React.Fragment>
           {mode === "modal" && (
             <CookieConsentModal
+              colors={colors}
+              locales={locales}
+              passedCategories={passedCategories}
+              categoriesList={categoriesList}
+              selectedCategories={selectedCategories}
+              requiredCategories={requiredCategories}
+              categorySettings={categorySettings}
+              setSelectedCategories={setSelectedCategories}
+              privacyPolicyUrl={privacyPolicyUrl}
+              onAcceptAll={onAcceptAll}
+              onAcceptSelection={onAcceptSelection}
+              onDeclineAll={onDeclineAll}
+              defaultHandlers={defaultHandlers}
+            />
+          )}
+          {mode === "banner" && (
+            <CookieConsentBanner
               colors={colors}
               locales={locales}
               passedCategories={passedCategories}
