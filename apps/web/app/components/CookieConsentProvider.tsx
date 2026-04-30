@@ -12,32 +12,44 @@ const exampleFunc = () => {
 };
 
 export const CookieConsentProvider = () => {
-  const [hasConsent, setHasConsent] = useState(false);
+  const [hasConsentValue, setHasConsentValue] = useState(false);
   useEffect(() => {
     const value = localStorage.getItem(storageKey);
-    setHasConsent(!!value);
+    setHasConsentValue(!!value);
   }, []);
 
   const handleRemoveConsent = () => {
     localStorage.removeItem(storageKey);
-    setHasConsent(false);
+    setHasConsentValue(false);
   };
 
   return (
     <div className={styles.cookieConsentProvider}>
       <CookieConsent
-        modalIsOpen={false}
+        modalIsOpen={!hasConsentValue}
         categoriesList="checkboxes"
         handlerFunctions={[
           { category: "essential", function: () => exampleFunc },
           { category: "analytics", function: () => exampleFunc },
         ]}
+        onAcceptAll={(accept) => {
+          accept();
+          setHasConsentValue(true);
+        }}
+        onAcceptSelection={(accept) => {
+          accept();
+          setHasConsentValue(true);
+        }}
+        onDeclineAll={(accept) => {
+          accept();
+          setHasConsentValue(true);
+        }}
       />
       <div className={styles.buttonWrapper}>
         <button
-          disabled={!hasConsent}
+          disabled={!hasConsentValue}
           className={styles.removeBtn}
-          onClick={handleRemoveConsent}
+          onClick={() => handleRemoveConsent()}
         >
           Remove consent
         </button>
