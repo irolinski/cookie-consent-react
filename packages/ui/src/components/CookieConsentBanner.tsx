@@ -28,6 +28,7 @@ import {
   Banner,
   BannerContent,
   BannerHeader,
+  BannerPrivacyPolicy,
   ResponsiveActions,
 } from "./CookieConsentBanner.styles";
 
@@ -70,8 +71,7 @@ export const CookieConsentBanner = ({
         <BannerHeader $colors={colors}>
           <h2>{locales.title}</h2>
           <p>{locales.description}</p>
-        </BannerHeader>
-        {/* <CategoriesContainer>
+          {/* <CategoriesContainer>
             {passedCategories.map((category) => (
               <React.Fragment key={category}>
                 {categoriesList === "checkboxes" && (
@@ -169,14 +169,16 @@ export const CookieConsentBanner = ({
               </React.Fragment>
             ))}
           </CategoriesContainer> */}
-        {privacyPolicyUrl && (
-          <PrivacyPolicy $colors={colors}>
-            <p>
-              {locales.privacyPolicyInfo}{" "}
-              <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
-            </p>
-          </PrivacyPolicy>
-        )}
+          {privacyPolicyUrl && (
+            <BannerPrivacyPolicy $colors={colors}>
+              <p>
+                {locales.privacyPolicyInfo}{" "}
+                <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
+              </p>
+            </BannerPrivacyPolicy>
+          )}
+        </BannerHeader>
+
         <ResponsiveActions>
           {selectedCategories.length || requiredCategories.length ? (
             <ResponsiveSaveButton
