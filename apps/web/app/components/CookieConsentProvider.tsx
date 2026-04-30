@@ -26,7 +26,7 @@ export const CookieConsentProvider = () => {
   return (
     <div className={styles.cookieConsentProvider}>
       <CookieConsent
-        mode="modal"
+        mode="banner"
         modalIsOpen={!hasConsentValue}
         categoriesList="checkboxes"
         handlerFunctions={[
@@ -45,15 +45,18 @@ export const CookieConsentProvider = () => {
           accept();
           setHasConsentValue(true);
         }}
+        privacyPolicyUrl="localhost:8000"
       />
       <div className={styles.buttonWrapper}>
-        <button
-          disabled={!hasConsentValue}
-          className={styles.removeBtn}
-          onClick={() => handleRemoveConsent()}
-        >
-          Remove consent
-        </button>
+        {hasConsentValue && (
+          <button
+            disabled={!hasConsentValue}
+            className={styles.removeBtn}
+            onClick={() => handleRemoveConsent()}
+          >
+            Remove consent
+          </button>
+        )}
       </div>
     </div>
   );
