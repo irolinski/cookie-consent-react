@@ -145,13 +145,11 @@ export const CookieConsent = ({
 
   useEffect(() => {
     if (modalIsOpen !== undefined) {
-      if (!savedCookieSettings) {
-        setIsOpen(true);
-      } else {
-        setIsOpen(false);
-      }
+      return;
     } else {
-      if (!savedCookieSettings) {
+      if (Array.isArray(savedCookieSettings)) {
+        setIsOpen(false);
+      } else {
         setIsOpen(true);
       }
     }
