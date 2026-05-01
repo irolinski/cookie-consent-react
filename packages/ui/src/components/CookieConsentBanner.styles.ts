@@ -3,9 +3,11 @@ import {
   AcceptButton,
   Actions,
   CategoriesContainer,
+  CheckboxContainer,
   DisableButton,
   mergeColors,
   PrivacyPolicy,
+  RequiredBadge,
   SaveButton,
   slideUp,
 } from "../styles";
@@ -45,6 +47,14 @@ export const BannerContent = styled.div`
   }
 `;
 
+export const BannerCategoriesSectionHeader = styled.h4<{
+  $colors: ReturnType<typeof mergeColors>;
+}>`
+  color: ${(props) => props.$colors.textPrimary};
+  font-size: 14px;
+  font-weight: 500;
+`;
+
 export const BannerHeader = styled.div<{
   $colors: ReturnType<typeof mergeColors>;
 }>`
@@ -74,6 +84,40 @@ export const BannerCategoriesHeader = styled.h6<{
   $colors: ReturnType<typeof mergeColors>;
 }>`
   color: ${(props) => props.$colors.textSecondary};
+`;
+
+export const BannerCategoriesRowCol = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 8px;
+`;
+
+export const BannerCategory = styled.div<{
+  $colors: ReturnType<typeof mergeColors>;
+}>`
+  border-radius: 6px;
+  overflow: hidden;
+`;
+
+export const BannerCategoryHeader = styled.div<{
+  $colors: ReturnType<typeof mergeColors>;
+}>`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+`;
+
+export const BannerCheckboxContainer = styled(CheckboxContainer)`
+  background-color: transparent;
+  border: none;
+`;
+
+export const BannerRequiredBadge = styled(RequiredBadge)`
+  margin: 0;
 `;
 
 export const ResponsiveActions = styled(Actions)`

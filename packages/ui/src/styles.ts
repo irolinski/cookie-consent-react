@@ -248,6 +248,7 @@ export const CheckboxContainer = styled.label`
   position: relative;
   cursor: pointer;
   user-select: none;
+  min-width: 150px;
 
   input {
     position: absolute;

@@ -5,10 +5,8 @@ import {
   CategoryHeader,
   CategoryInfo,
   CategoryName,
-  CheckboxContainer,
   Checkmark,
   PrivacyPolicy,
-  RequiredBadge,
   ResponsiveAcceptButton,
   ResponsiveDisableButton,
   ResponsiveSaveButton,
@@ -27,10 +25,15 @@ import {
 import {
   Banner,
   BannerCategoriesContainer,
-  BannerCategoriesHeader,
+  BannerCategoriesRowCol,
+  BannerCategoriesSectionHeader,
+  BannerCategory,
+  BannerCategoryHeader,
+  BannerCheckboxContainer,
   BannerContent,
   BannerHeader,
   BannerPrivacyPolicy,
+  BannerRequiredBadge,
   ResponsiveActions,
 } from "./CookieConsentBanner.styles";
 import { CookieConsentTranslations } from "../locales";
@@ -76,44 +79,99 @@ export const CookieConsentBanner = ({
           <h2>{locales.title}</h2>
           <p>{locales.description}</p>
           <React.Fragment>
+            {privacyPolicyUrl && (
+              <BannerPrivacyPolicy $colors={colors}>
+                <p>
+                  {locales.privacyPolicyInfo}{" "}
+                  <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
+                </p>
+              </BannerPrivacyPolicy>
+            )}
             {cookiePreferencesIsOpen && (
               <BannerCategoriesContainer>
-                <BannerCategoriesHeader $colors={colors}>
-                  Selected categories:
-                </BannerCategoriesHeader>
-                {passedCategories.map((category) => (
-                  <React.Fragment key={category}>
-                    {categoriesList === "checkboxes" && (
-                      <Category $colors={colors}>
-                        <CategoryHeader $colors={colors}>
-                          <CategoryInfo>
-                            <CheckboxContainer>
-                              <input
-                                type="checkbox"
-                                checked={
-                                  selectedCategories.includes(category) ||
-                                  requiredCategories.includes(category)
-                                }
-                                onChange={() =>
-                                  setSelectedCategories((prev) =>
-                                    selectedCategories.includes(category)
-                                      ? prev.filter((e) => e !== category)
-                                      : [...prev, category],
-                                  )
-                                }
-                                disabled={
-                                  categorySettings[category] &&
-                                  categorySettings[category]?.required
-                                }
-                              />
-                              <Checkmark
-                                $colors={colors}
-                                $isRequired={requiredCategories.includes(
-                                  category,
-                                )}
-                              >
-                                <span>&#10003;</span>
-                              </Checkmark>
+                <BannerCategoriesSectionHeader $colors={colors}>
+                  Categories:
+                </BannerCategoriesSectionHeader>
+                <BannerCategoriesRowCol>
+                  {passedCategories.map((category) => (
+                    <React.Fragment key={category}>
+                      {categoriesList === "checkboxes" && (
+                        <BannerCategory $colors={colors}>
+                          <BannerCategoryHeader $colors={colors}>
+                            <CategoryInfo>
+                              <BannerCheckboxContainer>
+                                <input
+                                  type="checkbox"
+                                  checked={
+                                    selectedCategories.includes(category) ||
+                                    requiredCategories.includes(category)
+                                  }
+                                  onChange={() =>
+                                    setSelectedCategories((prev) =>
+                                      selectedCategories.includes(category)
+                                        ? prev.filter((e) => e !== category)
+                                        : [...prev, category],
+                                    )
+                                  }
+                                  disabled={
+                                    categorySettings[category] &&
+                                    categorySettings[category]?.required
+                                  }
+                                />
+                                <Checkmark
+                                  $colors={colors}
+                                  $isRequired={requiredCategories.includes(
+                                    category,
+                                  )}
+                                >
+                                  <span>&#10003;</span>
+                                </Checkmark>
+                                <CategoryName $colors={colors}>
+                                  {categorySettings[category] &&
+                                  categorySettings[category]?.label
+                                    ? categorySettings[category]?.label
+                                    : locales[
+                                        category as keyof CookieConsentTranslations
+                                      ]}
+                                  {categorySettings[category] &&
+                                    categorySettings[category]?.required &&
+                                    "*"}
+                                </CategoryName>
+                              </BannerCheckboxContainer>
+                            </CategoryInfo>
+                          </BannerCategoryHeader>
+                        </BannerCategory>
+                      )}
+                      {categoriesList === "switches" && (
+                        <BannerCategory $colors={colors}>
+                          <BannerCategoryHeader $colors={colors}>
+                            <CategoryInfo>
+                              <Switch>
+                                <input
+                                  type="checkbox"
+                                  checked={
+                                    selectedCategories.includes(category) ||
+                                    requiredCategories.includes(category)
+                                  }
+                                  onChange={() =>
+                                    setSelectedCategories((prev) =>
+                                      selectedCategories.includes(category)
+                                        ? prev.filter((e) => e !== category)
+                                        : [...prev, category],
+                                    )
+                                  }
+                                  disabled={
+                                    categorySettings[category] &&
+                                    categorySettings[category]?.required
+                                  }
+                                />
+                                <Slider
+                                  $isRequired={requiredCategories.includes(
+                                    category,
+                                  )}
+                                  $colors={colors}
+                                />
+                              </Switch>
                               <CategoryName $colors={colors}>
                                 {categorySettings[category] &&
                                 categorySettings[category]?.label
@@ -121,79 +179,20 @@ export const CookieConsentBanner = ({
                                   : locales[
                                       category as keyof CookieConsentTranslations
                                     ]}
+                                {categorySettings[category] &&
+                                  categorySettings[category]?.required &&
+                                  "*"}
                               </CategoryName>
-                              {categorySettings[category] &&
-                                categorySettings[category]?.required && (
-                                  <RequiredBadge $colors={colors}>
-                                    {locales.required}
-                                  </RequiredBadge>
-                                )}
-                            </CheckboxContainer>
-                          </CategoryInfo>
-                        </CategoryHeader>
-                      </Category>
-                    )}
-                    {categoriesList === "switches" && (
-                      <Category $colors={colors}>
-                        <CategoryHeader $colors={colors}>
-                          <CategoryInfo>
-                            <Switch>
-                              <input
-                                type="checkbox"
-                                checked={
-                                  selectedCategories.includes(category) ||
-                                  requiredCategories.includes(category)
-                                }
-                                onChange={() =>
-                                  setSelectedCategories((prev) =>
-                                    selectedCategories.includes(category)
-                                      ? prev.filter((e) => e !== category)
-                                      : [...prev, category],
-                                  )
-                                }
-                                disabled={
-                                  categorySettings[category] &&
-                                  categorySettings[category]?.required
-                                }
-                              />
-                              <Slider
-                                $isRequired={requiredCategories.includes(
-                                  category,
-                                )}
-                                $colors={colors}
-                              />
-                            </Switch>
-                            <CategoryName $colors={colors}>
-                              {categorySettings[category] &&
-                              categorySettings[category]?.label
-                                ? categorySettings[category]?.label
-                                : locales[
-                                    category as keyof CookieConsentTranslations
-                                  ]}
-                            </CategoryName>
-                            {categorySettings[category] &&
-                              categorySettings[category]?.required && (
-                                <RequiredBadge $colors={colors}>
-                                  {locales.required}
-                                </RequiredBadge>
-                              )}
-                          </CategoryInfo>
-                        </CategoryHeader>
-                      </Category>
-                    )}
-                  </React.Fragment>
-                ))}
+                            </CategoryInfo>
+                          </BannerCategoryHeader>
+                        </BannerCategory>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </BannerCategoriesRowCol>
               </BannerCategoriesContainer>
             )}
           </React.Fragment>
-          {privacyPolicyUrl && (
-            <BannerPrivacyPolicy $colors={colors}>
-              <p>
-                {locales.privacyPolicyInfo}{" "}
-                <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
-              </p>
-            </BannerPrivacyPolicy>
-          )}
         </BannerHeader>
 
         <ResponsiveActions>
