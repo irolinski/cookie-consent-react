@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {
   AcceptButton,
   Actions,
+  CategoriesContainer,
   DisableButton,
   mergeColors,
   PrivacyPolicy,
@@ -13,8 +14,8 @@ export const Banner = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   background-color: ${(props) => props.$colors.background};
   box-shadow: 0 4px 20px ${(props) => props.$colors.shadow};
   width: 100vw;
+  max-height: 45vh;
   min-width: 100vw;
-  max-height: 35vh;
   overflow-y: auto;
   padding: 16px;
   animation: ${slideUp} 0.3s ease-out;
@@ -24,6 +25,10 @@ export const Banner = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: 640px) {
+    max-height: 35vh;
+  }
 `;
 
 export const BannerContent = styled.div`
@@ -59,6 +64,16 @@ export const BannerHeader = styled.div<{
     color: ${(props) => props.$colors.textSecondary};
     margin: 0;
   }
+`;
+
+export const BannerCategoriesContainer = styled(CategoriesContainer)`
+  padding-top: 16px;
+`;
+
+export const BannerCategoriesHeader = styled.h6<{
+  $colors: ReturnType<typeof mergeColors>;
+}>`
+  color: ${(props) => props.$colors.textSecondary};
 `;
 
 export const ResponsiveActions = styled(Actions)`
