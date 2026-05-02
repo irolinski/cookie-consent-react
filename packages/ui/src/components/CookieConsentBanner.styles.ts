@@ -77,16 +77,20 @@ export const BannerHeader = styled.div<{
   }
 `;
 
+export const BannerHeaderTop = styled.div<{
+  $colors: ReturnType<typeof mergeColors>;
+}>`
+  padding-bottom: 20px;
+`;
+
 export const BannerCategoriesContainer = styled(CategoriesContainer)<{
   $isOpen: boolean;
 }>`
-  max-height: ${(props) => (props.$isOpen ? "200px" : "0px")};
-  padding-top: ${(props) => (props.$isOpen ? "20px" : "0px")};
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  max-height: ${(props) => (props.$isOpen ? "200px" : "0px")};
   transition: max-height 1s ease-in;
-  @media (min-width: 640px) {
-    padding-top: ${(props) => (props.$isOpen ? "20px" : "12px")};
-  }
 `;
 
 export const BannerCategoriesHeader = styled.h6<{
