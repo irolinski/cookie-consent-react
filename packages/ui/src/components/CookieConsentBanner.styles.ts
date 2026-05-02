@@ -39,11 +39,12 @@ export const BannerContent = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 5vw;
-  gap: 5vw;
+  gap: 2.5vw;
   max-width: 1280px;
 
   @media (min-width: 640px) {
     flex-direction: row;
+    gap: 5vw;
   }
 `;
 
@@ -76,8 +77,16 @@ export const BannerHeader = styled.div<{
   }
 `;
 
-export const BannerCategoriesContainer = styled(CategoriesContainer)`
-  padding-top: 16px;
+export const BannerCategoriesContainer = styled(CategoriesContainer)<{
+  $isOpen: boolean;
+}>`
+  max-height: ${(props) => (props.$isOpen ? "200px" : "0px")};
+  padding-top: ${(props) => (props.$isOpen ? "20px" : "0px")};
+  overflow: hidden;
+  transition: max-height 1s ease-in;
+  @media (min-width: 640px) {
+    padding-top: ${(props) => (props.$isOpen ? "20px" : "12px")};
+  }
 `;
 
 export const BannerCategoriesHeader = styled.h6<{
