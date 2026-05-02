@@ -33,10 +33,10 @@ import {
   BannerContent,
   BannerHeader,
   BannerPrivacyPolicy,
-  BannerRequiredBadge,
   ResponsiveActions,
 } from "./CookieConsentBanner.styles";
 import { CookieConsentTranslations } from "../locales";
+import { DividerLine } from "./ui/DividerLine";
 
 type CookieConsentBannerProps = {
   colors: ColorsType;
@@ -89,8 +89,12 @@ export const CookieConsentBanner = ({
             )}
             {cookiePreferencesIsOpen && (
               <BannerCategoriesContainer>
-                <BannerCategoriesSectionHeader $colors={colors}>
-                  Categories:
+                <DividerLine length={"33%"} weight={"1px"} colors={colors} />
+                <BannerCategoriesSectionHeader
+                  $colors={colors}
+                  onClick={() => setCookiePreferencesIsOpen((prev) => !prev)}
+                >
+                  Categories
                 </BannerCategoriesSectionHeader>
                 <BannerCategoriesRowCol>
                   {passedCategories.map((category) => (

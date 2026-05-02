@@ -374,6 +374,23 @@ background-color: ${(props) =>
 }
 `;
 
+export const DividerLineWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DividerLineBody = styled.div<{
+  $colors: ReturnType<typeof mergeColors>;
+  $length: string;
+  $weight: string;
+}>`
+  border-top: 1px solid ${(props) => props.$colors.shadow};
+  width: ${(props) => props.$length};
+  height: ${(props) => props.$weight};
+`;
+
 // Responsive styles
 export const ResponsiveActions = styled(Actions)`
   @media (max-width: 640px) {
