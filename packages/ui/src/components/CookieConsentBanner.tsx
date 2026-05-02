@@ -93,7 +93,7 @@ export const CookieConsentBanner = ({
                 $colors={colors}
                 onClick={() => setCookiePreferencesIsOpen((prev) => !prev)}
               >
-                Categories
+                {locales.categories}
               </BannerCategoriesSectionHeader>
               <BannerCategoriesRowCol>
                 {passedCategories.map((category) => (
