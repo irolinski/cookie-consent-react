@@ -54,6 +54,7 @@ export const BannerCategoriesSectionHeader = styled.h4<{
   color: ${(props) => props.$colors.textPrimary};
   font-size: 14px;
   font-weight: 500;
+  padding: 5px 0;
 `;
 
 export const BannerHeader = styled.div<{
@@ -79,9 +80,7 @@ export const BannerHeader = styled.div<{
 
 export const BannerHeaderTop = styled.div<{
   $colors: ReturnType<typeof mergeColors>;
-}>`
-  padding-bottom: 20px;
-`;
+}>``;
 
 export const BannerCategoriesContainer = styled(CategoriesContainer)<{
   $isOpen: boolean;
@@ -90,7 +89,18 @@ export const BannerCategoriesContainer = styled(CategoriesContainer)<{
   width: 100%;
   height: 100%;
   max-height: ${(props) => (props.$isOpen ? "200px" : "0px")};
-  transition: max-height 1s ease-in;
+  transition: max-height 0.5s ease-in-out;
+`;
+
+export const BannerCategoriesContainerContent = styled.div`
+  margin-top: 20px;
+`;
+export const SaveButtonAccordionWrapper = styled(BannerCategoriesContainer)<{
+  $isOpen: boolean;
+}>`
+  padding: 0;
+  height: auto;
+  margin: 0;
 `;
 
 export const BannerCategoriesHeader = styled.h6<{
