@@ -3,6 +3,7 @@ import {
   AcceptButton,
   Actions,
   CategoriesContainer,
+  CategoryInfo,
   CheckboxContainer,
   DisableButton,
   mergeColors,
@@ -16,7 +17,7 @@ export const Banner = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   background-color: ${(props) => props.$colors.background};
   box-shadow: 0 4px 20px ${(props) => props.$colors.shadow};
   width: 100vw;
-  max-height: 45vh;
+  max-height: auto;
   min-width: 100vw;
   overflow-y: auto;
   padding: 16px;
@@ -114,6 +115,11 @@ export const BannerCategoriesRowCol = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   padding: 0 8px;
+  justify-content: center;
+
+  @media (min-width: 860px) {
+    justify-content: start;
+  }
 `;
 
 export const BannerCategory = styled.div<{
@@ -137,6 +143,16 @@ export const BannerCategoryHeader = styled.div<{
 export const BannerCheckboxContainer = styled(CheckboxContainer)`
   background-color: transparent;
   border: none;
+`;
+
+export const BannerSwitchCategoryInfo = styled(CategoryInfo)`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const BannerSwitchContainer = styled(BannerCheckboxContainer)`
+  justify-content: center;
 `;
 
 export const BannerRequiredBadge = styled(RequiredBadge)`

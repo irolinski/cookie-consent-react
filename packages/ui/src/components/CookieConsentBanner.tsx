@@ -35,6 +35,8 @@ import {
   BannerHeader,
   BannerHeaderTop,
   BannerPrivacyPolicy,
+  BannerSwitchCategoryInfo,
+  BannerSwitchContainer,
   ResponsiveActions,
   SaveButtonAccordionWrapper,
 } from "./CookieConsentBanner.styles";
@@ -155,33 +157,35 @@ export const CookieConsentBanner = ({
                     {categoriesList === "switches" && (
                       <BannerCategory $colors={colors}>
                         <BannerCategoryHeader $colors={colors}>
-                          <CategoryInfo>
-                            <Switch>
-                              <input
-                                type="checkbox"
-                                checked={
-                                  selectedCategories.includes(category) ||
-                                  requiredCategories.includes(category)
-                                }
-                                onChange={() =>
-                                  setSelectedCategories((prev) =>
-                                    selectedCategories.includes(category)
-                                      ? prev.filter((e) => e !== category)
-                                      : [...prev, category],
-                                  )
-                                }
-                                disabled={
-                                  categorySettings[category] &&
-                                  categorySettings[category]?.required
-                                }
-                              />
-                              <Slider
-                                $isRequired={requiredCategories.includes(
-                                  category,
-                                )}
-                                $colors={colors}
-                              />
-                            </Switch>
+                          <BannerSwitchCategoryInfo>
+                            <BannerSwitchContainer>
+                              <Switch>
+                                <input
+                                  type="checkbox"
+                                  checked={
+                                    selectedCategories.includes(category) ||
+                                    requiredCategories.includes(category)
+                                  }
+                                  onChange={() =>
+                                    setSelectedCategories((prev) =>
+                                      selectedCategories.includes(category)
+                                        ? prev.filter((e) => e !== category)
+                                        : [...prev, category],
+                                    )
+                                  }
+                                  disabled={
+                                    categorySettings[category] &&
+                                    categorySettings[category]?.required
+                                  }
+                                />
+                                <Slider
+                                  $isRequired={requiredCategories.includes(
+                                    category,
+                                  )}
+                                  $colors={colors}
+                                />
+                              </Switch>
+                            </BannerSwitchContainer>
                             <CategoryName $colors={colors}>
                               {categorySettings[category] &&
                               categorySettings[category]?.label
@@ -193,7 +197,7 @@ export const CookieConsentBanner = ({
                                 categorySettings[category]?.required &&
                                 "*"}
                             </CategoryName>
-                          </CategoryInfo>
+                          </BannerSwitchCategoryInfo>
                         </BannerCategoryHeader>
                       </BannerCategory>
                     )}
