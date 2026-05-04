@@ -1,0 +1,266 @@
+import React, { Dispatch, SetStateAction, useState } from "react";
+import {
+  CategoriesContainer,
+  Category,
+  CategoryHeader,
+  CategoryInfo,
+  CategoryName,
+  Checkmark,
+  PrivacyPolicy,
+  ResponsiveAcceptButton,
+  ResponsiveDisableButton,
+  ResponsiveSaveButton,
+  Slider,
+  Switch,
+} from "../styles";
+import {
+  CategoriesListType,
+  ColorsType,
+  CookieCategorySettings,
+  CookieCategoryType,
+  CookieConsentLocales,
+  CustomCookieConsentHandlerType,
+  DefaultCookieConsentHandlersType,
+} from "../types";
+import {
+  Banner,
+  BannerCategoriesContainer,
+  BannerCategoriesContainerContent,
+  BannerCategoriesRowCol,
+  BannerCategoriesSectionHeader,
+  BannerCategory,
+  BannerCategoryHeader,
+  BannerCategorySwitch,
+  BannerCheckboxContainer,
+  BannerContent,
+  BannerHeader,
+  BannerHeaderTop,
+  BannerPrivacyPolicy,
+  BannerSwitchCategoryInfo,
+  BannerSwitchContainer,
+  ResponsiveActions,
+  SaveButtonAccordionWrapper,
+} from "./CookieConsentBanner.styles";
+import { CookieConsentTranslations } from "../locales";
+import { DividerLine } from "./ui/DividerLine";
+
+type CookieConsentBannerProps = {
+  colors: ColorsType;
+  locales: CookieConsentLocales;
+  passedCategories: CookieCategoryType[];
+  categoriesList: CategoriesListType;
+  selectedCategories: CookieCategoryType[];
+  requiredCategories: CookieCategoryType[];
+  categorySettings: CookieCategorySettings;
+  setSelectedCategories: Dispatch<
+    SetStateAction<("essential" | "marketing" | "analytics" | "other")[]>
+  >;
+  privacyPolicyUrl: string | undefined;
+  onAcceptAll: CustomCookieConsentHandlerType | undefined;
+  onAcceptSelection: CustomCookieConsentHandlerType | undefined;
+  onDeclineAll: CustomCookieConsentHandlerType | undefined;
+  defaultHandlers: DefaultCookieConsentHandlersType;
+};
+
+export const CookieConsentBanner = ({
+  colors,
+  locales,
+  passedCategories,
+  categoriesList,
+  selectedCategories,
+  requiredCategories,
+  categorySettings,
+  setSelectedCategories,
+  privacyPolicyUrl,
+  onAcceptAll,
+  onAcceptSelection,
+  onDeclineAll,
+  defaultHandlers,
+}: CookieConsentBannerProps) => {
+  const [cookiePreferencesIsOpen, setCookiePreferencesIsOpen] = useState(false);
+  return (
+    <Banner $colors={colors}>
+      <BannerContent>
+        <BannerHeader $colors={colors}>
+          <BannerHeaderTop $colors={colors}>
+            <h2>{locales.title}</h2>
+            <p>{locales.description}</p>
+            <React.Fragment>
+              {privacyPolicyUrl && (
+                <BannerPrivacyPolicy $colors={colors}>
+                  <p>
+                    {locales.privacyPolicyInfo}{" "}
+                    <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
+                  </p>
+                </BannerPrivacyPolicy>
+              )}
+            </React.Fragment>
+          </BannerHeaderTop>
+          <BannerCategoriesContainer $isOpen={cookiePreferencesIsOpen}>
+            <BannerCategoriesContainerContent>
+              {categoriesList === "checkboxes" && (
+                <DividerLine length={"33%"} weight={"1px"} colors={colors} />
+              )}
+              <BannerCategoriesSectionHeader
+                $colors={colors}
+                onClick={() => setCookiePreferencesIsOpen((prev) => !prev)}
+              >
+                {locales.categories}
+              </BannerCategoriesSectionHeader>
+              <BannerCategoriesRowCol>
+                {passedCategories.map((category) => (
+                  <React.Fragment key={category}>
+                    {categoriesList === "checkboxes" && (
+                      <BannerCategory $colors={colors}>
+                        <BannerCategoryHeader $colors={colors}>
+                          <CategoryInfo>
+                            <BannerCheckboxContainer>
+                              <input
+                                type="checkbox"
+                                checked={
+                                  selectedCategories.includes(category) ||
+                                  requiredCategories.includes(category)
+                                }
+                                onChange={() =>
+                                  setSelectedCategories((prev) =>
+                                    selectedCategories.includes(category)
+                                      ? prev.filter((e) => e !== category)
+                                      : [...prev, category],
+                                  )
+                                }
+                                disabled={
+                                  categorySettings[category] &&
+                                  categorySettings[category]?.required
+                                }
+                              />
+                              <Checkmark
+                                $colors={colors}
+                                $isRequired={requiredCategories.includes(
+                                  category,
+                                )}
+                              >
+                                <span>&#10003;</span>
+                              </Checkmark>
+                              <CategoryName $colors={colors}>
+                                {categorySettings[category] &&
+                                categorySettings[category]?.label
+                                  ? categorySettings[category]?.label
+                                  : locales[
+                                      category as keyof CookieConsentTranslations
+                                    ]}
+                                {categorySettings[category] &&
+                                  categorySettings[category]?.required &&
+                                  "*"}
+                              </CategoryName>
+                            </BannerCheckboxContainer>
+                          </CategoryInfo>
+                        </BannerCategoryHeader>
+                      </BannerCategory>
+                    )}
+                    {categoriesList === "switches" && (
+                      <BannerCategorySwitch $colors={colors}>
+                        <BannerCategoryHeader $colors={colors}>
+                          <BannerSwitchCategoryInfo>
+                            <BannerSwitchContainer>
+                              <Switch>
+                                <input
+                                  type="checkbox"
+                                  checked={
+                                    selectedCategories.includes(category) ||
+                                    requiredCategories.includes(category)
+                                  }
+                                  onChange={() =>
+                                    setSelectedCategories((prev) =>
+                                      selectedCategories.includes(category)
+                                        ? prev.filter((e) => e !== category)
+                                        : [...prev, category],
+                                    )
+                                  }
+                                  disabled={
+                                    categorySettings[category] &&
+                                    categorySettings[category]?.required
+                                  }
+                                />
+                                <Slider
+                                  $isRequired={requiredCategories.includes(
+                                    category,
+                                  )}
+                                  $colors={colors}
+                                />
+                              </Switch>
+                            </BannerSwitchContainer>
+                            <CategoryName $colors={colors}>
+                              {categorySettings[category] &&
+                              categorySettings[category]?.label
+                                ? categorySettings[category]?.label
+                                : locales[
+                                    category as keyof CookieConsentTranslations
+                                  ]}
+                              {categorySettings[category] &&
+                                categorySettings[category]?.required &&
+                                "*"}
+                            </CategoryName>
+                          </BannerSwitchCategoryInfo>
+                        </BannerCategoryHeader>
+                      </BannerCategorySwitch>
+                    )}
+                  </React.Fragment>
+                ))}
+              </BannerCategoriesRowCol>
+            </BannerCategoriesContainerContent>
+          </BannerCategoriesContainer>
+        </BannerHeader>
+
+        <ResponsiveActions>
+          {selectedCategories.length || requiredCategories.length ? (
+            <React.Fragment>
+              <ResponsiveSaveButton
+                $colors={colors}
+                onClick={() => setCookiePreferencesIsOpen((prev) => !prev)}
+              >
+                {locales.cookiePreferences}
+              </ResponsiveSaveButton>
+              <SaveButtonAccordionWrapper $isOpen={cookiePreferencesIsOpen}>
+                <ResponsiveSaveButton
+                  $colors={colors}
+                  onClick={() =>
+                    onAcceptSelection
+                      ? onAcceptSelection(defaultHandlers.acceptSelection)
+                      : defaultHandlers.acceptSelection()
+                  }
+                >
+                  {locales.saveSelection}
+                </ResponsiveSaveButton>
+              </SaveButtonAccordionWrapper>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {requiredCategories.length === 0 && (
+                <ResponsiveDisableButton
+                  $colors={colors}
+                  onClick={() =>
+                    onDeclineAll
+                      ? onDeclineAll(defaultHandlers.declineAll)
+                      : defaultHandlers.declineAll()
+                  }
+                >
+                  {locales.disableAll}
+                </ResponsiveDisableButton>
+              )}
+            </React.Fragment>
+          )}
+          <ResponsiveAcceptButton
+            $colors={colors}
+            onClick={() =>
+              onAcceptAll
+                ? onAcceptAll(defaultHandlers.acceptAll)
+                : defaultHandlers.acceptAll()
+            }
+          >
+            {locales.acceptAll}
+          </ResponsiveAcceptButton>
+        </ResponsiveActions>
+      </BannerContent>
+    </Banner>
+  );
+};
