@@ -21,7 +21,7 @@ import {
 } from "../styles";
 import { CookieConsentTranslations } from "../locales";
 import {
-  CategoriesListType,
+  CategoriesListStyleType,
   ColorsType,
   CookieCategorySettings,
   CookieCategoryType,
@@ -34,7 +34,7 @@ type CookieConsentModalProps = {
   colors: ColorsType;
   locales: CookieConsentLocales;
   passedCategories: CookieCategoryType[];
-  categoriesList: CategoriesListType;
+  categoriesListStyle: CategoriesListStyleType;
   selectedCategories: CookieCategoryType[];
   requiredCategories: CookieCategoryType[];
   categorySettings: CookieCategorySettings;
@@ -52,7 +52,7 @@ export const CookieConsentModal = ({
   colors,
   locales,
   passedCategories,
-  categoriesList,
+  categoriesListStyle,
   selectedCategories,
   requiredCategories,
   categorySettings,
@@ -73,7 +73,7 @@ export const CookieConsentModal = ({
         <CategoriesContainer>
           {passedCategories.map((category) => (
             <React.Fragment key={category}>
-              {categoriesList === "checkboxes" && (
+              {categoriesListStyle === "checkboxes" && (
                 <Category $colors={colors}>
                   <CategoryHeader $colors={colors}>
                     <CategoryInfo>
@@ -121,7 +121,7 @@ export const CookieConsentModal = ({
                   </CategoryHeader>
                 </Category>
               )}
-              {categoriesList === "switches" && (
+              {categoriesListStyle === "switches" && (
                 <Category $colors={colors}>
                   <CategoryHeader $colors={colors}>
                     <CategoryInfo>
