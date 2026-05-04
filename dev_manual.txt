@@ -4,7 +4,7 @@ to publish -> cd packages/ui -> npm publish --access --public
 
 
 for development add     "./*": "./src/*.tsx", to exports in package.json
-for production add ` "./" {     
+for production add ` ".": {     
 "import": "./dist/index.mjs",
 "require": "./dist/index.js",
 "types": "./dist/index.d.ts"
