@@ -214,7 +214,9 @@ export const CookieConsentBanner = ({
                 $colors={colors}
                 onClick={() => setCookiePreferencesIsOpen((prev) => !prev)}
               >
-                {locales.cookiePreferences}
+                {!cookiePreferencesIsOpen === true
+                  ? locales.cookiePreferences_show
+                  : locales.cookiePreferences_hide}
               </ResponsiveSaveButton>
               <SaveButtonAccordionWrapper $isOpen={cookiePreferencesIsOpen}>
                 <ResponsiveSaveButton
