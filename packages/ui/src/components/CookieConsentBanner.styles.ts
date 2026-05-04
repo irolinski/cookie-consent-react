@@ -109,15 +109,11 @@ export const BannerCategoriesRowCol = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 0 8px;
-  justify-content: center;
+  padding: 8px 16px;
+  justify-content: start;
 
   & > div {
     min-width: 50%;
-  }
-
-  @media (min-width: 860px) {
-    justify-content: start;
   }
 
   @media (min-width: 980px) {
