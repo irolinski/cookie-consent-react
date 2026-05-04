@@ -17,7 +17,6 @@ export const Banner = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   background-color: ${(props) => props.$colors.background};
   box-shadow: 0 4px 20px ${(props) => props.$colors.shadow};
   width: 100vw;
-  max-height: auto;
   min-width: 100vw;
   overflow-y: auto;
   padding: 16px;
@@ -28,10 +27,6 @@ export const Banner = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  @media (min-width: 640px) {
-    max-height: 35vh;
-  }
 `;
 
 export const BannerContent = styled.div`
@@ -89,7 +84,7 @@ export const BannerCategoriesContainer = styled(CategoriesContainer)<{
   overflow: hidden;
   width: 100%;
   height: 100%;
-  max-height: ${(props) => (props.$isOpen ? "200px" : "0px")};
+  max-height: ${(props) => (props.$isOpen ? "90vh" : "0px")};
   transition: max-height 0.5s ease-in-out;
 `;
 
@@ -117,8 +112,18 @@ export const BannerCategoriesRowCol = styled.div`
   padding: 0 8px;
   justify-content: center;
 
+  & > div {
+    min-width: 50%;
+  }
+
   @media (min-width: 860px) {
     justify-content: start;
+  }
+
+  @media (min-width: 980px) {
+    & > div {
+      min-width: auto;
+    }
   }
 `;
 
@@ -131,7 +136,7 @@ export const BannerCategory = styled.div<{
 export const BannerCategorySwitch = styled(BannerCategory)`
   border-right: 0.5px solid rgba(0, 0, 0, 0.25);
 
-  @media (min-width: 960px) {
+  @media (min-width: 980px) {
     &:last-of-type {
       border: none;
     }
