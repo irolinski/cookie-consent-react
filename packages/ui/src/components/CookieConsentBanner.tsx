@@ -1,12 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import {
-  CategoriesContainer,
-  Category,
-  CategoryHeader,
   CategoryInfo,
   CategoryName,
   Checkmark,
-  PrivacyPolicy,
   ResponsiveAcceptButton,
   ResponsiveDisableButton,
   ResponsiveSaveButton,
@@ -14,7 +10,7 @@ import {
   Switch,
 } from "../styles";
 import {
-  CategoriesListType,
+  CategoriesListStyleType,
   ColorsType,
   CookieCategorySettings,
   CookieCategoryType,
@@ -48,7 +44,7 @@ type CookieConsentBannerProps = {
   colors: ColorsType;
   locales: CookieConsentLocales;
   passedCategories: CookieCategoryType[];
-  categoriesList: CategoriesListType;
+  categoriesListStyle: CategoriesListStyleType;
   selectedCategories: CookieCategoryType[];
   requiredCategories: CookieCategoryType[];
   categorySettings: CookieCategorySettings;
@@ -66,7 +62,7 @@ export const CookieConsentBanner = ({
   colors,
   locales,
   passedCategories,
-  categoriesList,
+  categoriesListStyle,
   selectedCategories,
   requiredCategories,
   categorySettings,
@@ -98,7 +94,7 @@ export const CookieConsentBanner = ({
           </BannerHeaderTop>
           <BannerCategoriesContainer $isOpen={cookiePreferencesIsOpen}>
             <BannerCategoriesContainerContent>
-              {categoriesList === "checkboxes" && (
+              {categoriesListStyle === "checkboxes" && (
                 <DividerLine length={"33%"} weight={"1px"} colors={colors} />
               )}
               <BannerCategoriesSectionHeader
@@ -110,7 +106,7 @@ export const CookieConsentBanner = ({
               <BannerCategoriesRowCol>
                 {passedCategories.map((category) => (
                   <React.Fragment key={category}>
-                    {categoriesList === "checkboxes" && (
+                    {categoriesListStyle === "checkboxes" && (
                       <BannerCategory $colors={colors}>
                         <BannerCategoryHeader $colors={colors}>
                           <CategoryInfo>
@@ -157,7 +153,7 @@ export const CookieConsentBanner = ({
                         </BannerCategoryHeader>
                       </BannerCategory>
                     )}
-                    {categoriesList === "switches" && (
+                    {categoriesListStyle === "switches" && (
                       <BannerCategorySwitch $colors={colors}>
                         <BannerCategoryHeader $colors={colors}>
                           <BannerSwitchCategoryInfo>
@@ -218,7 +214,9 @@ export const CookieConsentBanner = ({
                 $colors={colors}
                 onClick={() => setCookiePreferencesIsOpen((prev) => !prev)}
               >
-                {locales.cookiePreferences}
+                {!cookiePreferencesIsOpen === true
+                  ? locales.cookiePreferences_show
+                  : locales.cookiePreferences_hide}
               </ResponsiveSaveButton>
               <SaveButtonAccordionWrapper $isOpen={cookiePreferencesIsOpen}>
                 <ResponsiveSaveButton

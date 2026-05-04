@@ -47,7 +47,7 @@ export const CookieConsent = ({
   language = "en",
   customLocales,
   categorySettings = { essential: { required: true } },
-  categoriesList = "checkboxes",
+  categoriesListStyle = "checkboxes",
   onAcceptAll,
   onAcceptSelection,
   onDeclineAll,
@@ -170,7 +170,7 @@ export const CookieConsent = ({
               colors={colors}
               locales={locales}
               passedCategories={passedCategories}
-              categoriesList={categoriesList}
+              categoriesListStyle={categoriesListStyle}
               selectedCategories={selectedCategories}
               requiredCategories={requiredCategories}
               categorySettings={categorySettings}
@@ -187,7 +187,7 @@ export const CookieConsent = ({
               colors={colors}
               locales={locales}
               passedCategories={passedCategories}
-              categoriesList={categoriesList}
+              categoriesListStyle={categoriesListStyle}
               selectedCategories={selectedCategories}
               requiredCategories={requiredCategories}
               categorySettings={categorySettings}

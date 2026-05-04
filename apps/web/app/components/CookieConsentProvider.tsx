@@ -28,10 +28,11 @@ export const CookieConsentProvider = () => {
       <CookieConsent
         mode="banner"
         modalIsOpen={!hasConsentValue}
-        categoriesList="checkboxes"
+        categoriesListStyle="checkboxes"
         handlerFunctions={[
           { category: "essential", function: () => exampleFunc },
           { category: "analytics", function: () => exampleFunc },
+          { category: "marketing", function: () => exampleFunc },
         ]}
         onAcceptAll={(accept) => {
           accept();
