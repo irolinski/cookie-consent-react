@@ -125,8 +125,17 @@ export const BannerCategoriesRowCol = styled.div`
 export const BannerCategory = styled.div<{
   $colors: ReturnType<typeof mergeColors>;
 }>`
-  border-radius: 6px;
   overflow: hidden;
+`;
+
+export const BannerCategorySwitch = styled(BannerCategory)`
+  border-right: 0.5px solid rgba(0, 0, 0, 0.25);
+
+  @media (min-width: 960px) {
+    &:last-of-type {
+      border: none;
+    }
+  }
 `;
 
 export const BannerCategoryHeader = styled.div<{

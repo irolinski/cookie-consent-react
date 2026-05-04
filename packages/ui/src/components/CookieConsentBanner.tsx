@@ -30,6 +30,7 @@ import {
   BannerCategoriesSectionHeader,
   BannerCategory,
   BannerCategoryHeader,
+  BannerCategorySwitch,
   BannerCheckboxContainer,
   BannerContent,
   BannerHeader,
@@ -97,7 +98,9 @@ export const CookieConsentBanner = ({
           </BannerHeaderTop>
           <BannerCategoriesContainer $isOpen={cookiePreferencesIsOpen}>
             <BannerCategoriesContainerContent>
-              <DividerLine length={"33%"} weight={"1px"} colors={colors} />
+              {categoriesList === "checkboxes" && (
+                <DividerLine length={"33%"} weight={"1px"} colors={colors} />
+              )}
               <BannerCategoriesSectionHeader
                 $colors={colors}
                 onClick={() => setCookiePreferencesIsOpen((prev) => !prev)}
@@ -155,7 +158,7 @@ export const CookieConsentBanner = ({
                       </BannerCategory>
                     )}
                     {categoriesList === "switches" && (
-                      <BannerCategory $colors={colors}>
+                      <BannerCategorySwitch $colors={colors}>
                         <BannerCategoryHeader $colors={colors}>
                           <BannerSwitchCategoryInfo>
                             <BannerSwitchContainer>
@@ -199,7 +202,7 @@ export const CookieConsentBanner = ({
                             </CategoryName>
                           </BannerSwitchCategoryInfo>
                         </BannerCategoryHeader>
-                      </BannerCategory>
+                      </BannerCategorySwitch>
                     )}
                   </React.Fragment>
                 ))}
