@@ -140,7 +140,10 @@ export const CookieConsent = ({
   const actualIsOpen = modalIsOpen !== undefined ? modalIsOpen : isOpen;
 
   return (
-    <CookieConsentReactContainer $fontFamily={customFontFamily}>
+    <CookieConsentReactContainer
+      $fontFamily={customFontFamily}
+      className="cookie-consent-react"
+    >
       {savedCookieSettings !== undefined && (
         <React.Fragment>
           {tags &&
