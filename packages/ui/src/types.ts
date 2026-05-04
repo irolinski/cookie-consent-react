@@ -43,7 +43,7 @@ export type ColorsType = {
   shadow: string;
 };
 
-export type CategoriesListType = "hide" | "checkboxes" | "switches";
+export type CategoriesListStyleType = "hide" | "checkboxes" | "switches";
 
 export type DefaultCookieConsentHandlersType = {
   acceptAll: () => void;
@@ -66,7 +66,7 @@ export type CookieConsentProps = {
   language?: CookieConsentAvailableLanguage;
   customLocales?: CookieConsentTranslations;
   categorySettings?: CookieCategorySettings;
-  categoriesList?: CategoriesListType;
+  categoriesListStyle?: CategoriesListStyleType;
   onAcceptAll?: CustomCookieConsentHandlerType;
   onAcceptSelection?: CustomCookieConsentHandlerType;
   onDeclineAll?: CustomCookieConsentHandlerType;
