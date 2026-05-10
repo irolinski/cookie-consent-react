@@ -71,19 +71,6 @@ export const CookieConsent = ({
   const storageKey = customStorageKey ?? DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
   const colors: ColorsType = mergeColors(customColors);
 
-  let locales = CookieConsentDefaultTranslations[language];
-  if (customLocales) {
-    const newLocalesObj = { ...locales };
-    (
-      Object.keys(customLocales) as Array<keyof CookieConsentCustomTranslations>
-    ).forEach((key) => {
-      if (customLocales[key]) {
-        newLocalesObj[key] = customLocales[key];
-      }
-    });
-    locales = newLocalesObj;
-  }
-
   // PROP VALUE PROCESSING
   const passedCategories: CookieCategoryType[] = getPassedCategories([
     tags,
@@ -144,6 +131,20 @@ export const CookieConsent = ({
       }
     }
   }, [savedCookieSettings, modalIsOpen]);
+
+  // handle locales
+  let locales = CookieConsentDefaultTranslations[language];
+  if (customLocales) {
+    const newLocalesObj = { ...locales };
+    (
+      Object.keys(customLocales) as Array<keyof CookieConsentCustomTranslations>
+    ).forEach((key) => {
+      if (customLocales[key]) {
+        newLocalesObj[key] = customLocales[key];
+      }
+    });
+    locales = newLocalesObj;
+  }
 
   // isOpen -- overwrite if prop exists
   const actualIsOpen = modalIsOpen !== undefined ? modalIsOpen : isOpen;
