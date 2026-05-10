@@ -1,8 +1,8 @@
 import { JSX } from "react";
 import {
   CookieConsentAvailableLanguage,
+  CookieConsentCustomTranslations,
   CookieConsentDefaultTranslations,
-  CookieConsentTranslations,
 } from "./locales";
 import { DEFAULT_COOKIE_CATEGORIES } from "./constants";
 
@@ -64,7 +64,7 @@ export type CookieConsentProps = {
   snippets?: CookieSnippetObject[];
   handlerFunctions?: CookieHandlerFunctionObject[];
   language?: CookieConsentAvailableLanguage;
-  customLocales?: CookieConsentTranslations;
+  customLocales?: CookieConsentCustomTranslations;
   categorySettings?: CookieCategorySettings;
   categoriesListStyle?: CategoriesListStyleType;
   onAcceptAll?: CustomCookieConsentHandlerType;

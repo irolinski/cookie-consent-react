@@ -21,6 +21,9 @@ export type CookieConsentTranslations = {
   other: string;
 };
 
+export type CookieConsentCustomTranslations =
+  Partial<CookieConsentTranslations>;
+
 export type CookieConsentAvailableLanguage =
   keyof typeof CookieConsentDefaultTranslations;
 

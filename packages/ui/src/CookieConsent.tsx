@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { CookieConsentDefaultTranslations } from "./locales";
+import {
+  CookieConsentCustomTranslations,
+  CookieConsentDefaultTranslations,
+} from "./locales";
 import {
   CookieConsentProps,
   CookieConsentObject,
@@ -72,7 +75,15 @@ export const CookieConsent = ({
 
   let locales = CookieConsentDefaultTranslations[language];
   if (customLocales) {
-    locales = customLocales;
+    const newLocalesObj = { ...locales };
+    (
+      Object.keys(customLocales) as Array<keyof CookieConsentCustomTranslations>
+    ).forEach((key) => {
+      if (customLocales[key]) {
+        newLocalesObj[key] = customLocales[key];
+      }
+    });
+    locales = newLocalesObj;
   }
 
   // PROP VALUE PROCESSING
