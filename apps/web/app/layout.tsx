@@ -15,7 +15,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "cookie-consent-react",
   description:
-    "Webpage with production demo of npm package component cookie-consent-react.",
+    "cookie-consent-react - free customizable open-source React cookie consent modal and banner",
 };
 
 export default function RootLayout({
