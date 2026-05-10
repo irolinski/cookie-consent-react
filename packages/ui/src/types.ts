@@ -1,9 +1,5 @@
 import { JSX } from "react";
-import {
-  CookieConsentAvailableLanguage,
-  CookieConsentCustomTranslations,
-  CookieConsentDefaultTranslations,
-} from "./locales";
+import { CookieConsentDefaultTranslations } from "./locales";
 import { DEFAULT_COOKIE_CATEGORIES } from "./constants";
 
 export type CookieCategoryType = (typeof DEFAULT_COOKIE_CATEGORIES)[number];
@@ -89,3 +85,32 @@ export type CookieConsentProps = {
 };
 
 export type CookieConsentModalProps = Omit<CookieConsentProps, "mode">;
+
+export type CookieConsentTranslations = {
+  title: string;
+  description: string;
+  required: string;
+
+  privacyPolicyInfo: string;
+  privacyPolicy: string;
+
+  acceptAll: string;
+  saveSelection: string;
+  disableAll: string;
+
+  cookiePreferences_show: string;
+  cookiePreferences_hide: string;
+
+  categories: string;
+
+  essential: string;
+  marketing: string;
+  analytics: string;
+  other: string;
+};
+
+export type CookieConsentCustomTranslations =
+  Partial<CookieConsentTranslations>;
+
+export type CookieConsentAvailableLanguage =
+  keyof typeof CookieConsentDefaultTranslations;

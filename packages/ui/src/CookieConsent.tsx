@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  CookieConsentCustomTranslations,
-  CookieConsentDefaultTranslations,
-} from "./locales";
+import { CookieConsentDefaultTranslations } from "./locales";
 import {
   CookieConsentProps,
   CookieConsentObject,
@@ -13,6 +10,7 @@ import {
   CookieSnippetObject,
   ColorsType,
   DefaultCookieConsentHandlersType,
+  CookieConsentCustomTranslations,
 } from "./types";
 import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "./constants";
 import { CookieConsentReactContainer, mergeColors } from "./styles";
