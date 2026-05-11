@@ -118,8 +118,9 @@ export const CookieConsent = ({
   //run passed handler functions
   useEffect(() => {
     handlerFunctions?.forEach((handleFunctionObject) => {
-      if (savedCookieSettings?.includes(handleFunctionObject.category))
+      if (savedCookieSettings?.includes(handleFunctionObject.category)) {
         handleFunctionObject.function();
+      }
     });
   }, [handlerFunctions, savedCookieSettings]);
 
