@@ -29,10 +29,10 @@ export const mergeColors = (
   customColors?: CookieConsentProps["customColors"],
 ) => ({
   primary: customColors?.primary ?? DEFAULT_COLORS.primary,
-  primaryLight: customColors?.primaryLight ?? DEFAULT_COLORS.primaryLight,
+  lightPrimary: customColors?.lightPrimary ?? DEFAULT_COLORS.lightPrimary,
+  lightSecondary: customColors?.lightSecondary ?? DEFAULT_COLORS.lightSecondary,
   textPrimary: customColors?.textPrimary ?? DEFAULT_COLORS.textPrimary,
   textSecondary: customColors?.textSecondary ?? DEFAULT_COLORS.textSecondary,
-  borderInput: customColors?.borderInput ?? DEFAULT_COLORS.borderInput,
   background: customColors?.background ?? DEFAULT_COLORS.background,
   backgroundOff: customColors?.backgroundOff ?? DEFAULT_COLORS.backgroundOff,
   overlay: customColors?.overlay ?? DEFAULT_COLORS.overlay,
@@ -104,7 +104,7 @@ export const CategoriesContainer = styled.div`
 `;
 
 export const Category = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
-  border: 1px solid ${(props) => props.$colors.primaryLight};
+  border: 1px solid ${(props) => props.$colors.lightPrimary};
   border-radius: 6px;
   overflow: hidden;
 `;
@@ -137,7 +137,7 @@ export const RequiredBadge = styled.span<{
   $colors: ReturnType<typeof mergeColors>;
 }>`
   display: inline-block;
-  background-color: ${(props) => props.$colors.primaryLight};
+  background-color: ${(props) => props.$colors.lightPrimary};
   color: ${(props) => props.$colors.primary};
   font-size: 11px;
   padding: 1px 6px;
@@ -208,7 +208,7 @@ export const DisableButton = styled.button<{
   transition: all 0.2s ease;
   background-color: ${(props) => props.$colors.background};
   color: ${(props) => props.$colors.textPrimary};
-  border: 1px solid ${(props) => props.$colors.borderInput};
+  border: 1px solid ${(props) => props.$colors.lightSecondary};
   ${buttonFadeIn}
   animation-delay: 0.25s;
 
@@ -273,14 +273,14 @@ export const Checkmark = styled.div<{
   border: ${(props) =>
     !props.$isRequired
       ? `2px solid
- ${props.$colors.borderInput}`
+ ${props.$colors.lightSecondary}`
       : null};
   border-radius: 4px;
   transition: border-color 0.25s ease-in-out;
 
   ${CheckboxContainer}:hover input ~ & {
     border-color: ${(props) =>
-      `color-mix(in srgb, ${props.$colors.borderInput}, transparent 40%)`};
+      `color-mix(in srgb, ${props.$colors.lightSecondary}, transparent 40%)`};
   }
 
   ${CheckboxContainer} input:checked ~ & {

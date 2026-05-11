@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { CookieConsentDefaultTranslations } from "./locales";
-import { DEFAULT_COOKIE_CATEGORIES } from "./constants";
+import { DEFAULT_COLORS, DEFAULT_COOKIE_CATEGORIES } from "./constants";
 
 export type CookieCategoryType = (typeof DEFAULT_COOKIE_CATEGORIES)[number];
 
@@ -29,10 +29,10 @@ export type CookieConsentMode = "modal" | "banner";
 
 export type ColorsType = {
   primary: string;
-  primaryLight: string;
+  lightPrimary: string;
+  lightSecondary: string;
   textPrimary: string;
   textSecondary: string;
-  borderInput: string;
   background: string;
   backgroundOff: string;
   overlay: string;
@@ -69,18 +69,7 @@ export type CookieConsentProps = {
   privacyPolicyUrl?: string;
   customStorageKey?: string;
   modalIsOpen?: boolean | undefined;
-  customColors?: {
-    primary?: string;
-    primaryLight?: string;
-    textPrimary?: string;
-    textSecondary?: string;
-    borderInput?: string;
-    borderInputHover?: string;
-    background?: string;
-    backgroundOff?: string;
-    overlay?: string;
-    shadow?: string;
-  };
+  customColors?: Partial<typeof DEFAULT_COLORS>;
   customFontFamily?: string;
 };
 
