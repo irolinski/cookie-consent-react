@@ -48,6 +48,13 @@ export const CookieConsentReactContainer = styled.div<{
   font-family: ${(props) =>
     props.$fontFamily ||
     `'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif`};
+
+  /* apply font-family to buttons too */
+  button {
+    font-family: ${(props) =>
+      props.$fontFamily ||
+      `'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif`};
+  }
 `;
 
 export const Overlay = styled.div<{ $colors: ReturnType<typeof mergeColors> }>`
