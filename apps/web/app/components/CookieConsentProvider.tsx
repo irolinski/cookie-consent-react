@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "../../../../packages/ui/src/constants";
 import styles from "./CookieConsentProvider.module.css";
 
-const storageKey = DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
+const STORAGE_KEY = DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
 
 const exampleFunc_1 = () => {
   console.log(
@@ -29,12 +29,12 @@ export const CookieConsentProvider = () => {
   const [hasConsentValue, setHasConsentValue] = useState(false);
 
   const handleRemoveConsent = () => {
-    localStorage.removeItem(storageKey);
+    localStorage.removeItem(STORAGE_KEY);
     setHasConsentValue(false);
   };
 
   useEffect(() => {
-    const value = localStorage.getItem(storageKey);
+    const value = localStorage.getItem(STORAGE_KEY);
     setHasConsentValue(!!value);
   }, []);
 
