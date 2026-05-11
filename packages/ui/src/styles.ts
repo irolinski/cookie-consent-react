@@ -175,7 +175,7 @@ export const buttonFadeIn = css`
   animation: ${fadeIn} 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
 `;
 
-export const AcceptButton = styled.button<{
+export const CookieConsentButton = styled.button<{
   $colors: ReturnType<typeof mergeColors>;
 }>`
   padding: 8px 16px;
@@ -184,61 +184,42 @@ export const AcceptButton = styled.button<{
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: ${(props) => props.$colors.primary};
-  color: ${(props) => props.$colors.background};
-  border: 1px solid transparent;
-  ${buttonFadeIn}
-  animation-delay: 0.15s;
-
+  animation-delay: 0.35s;
   &:hover {
-    filter: brightness(0.9);
+    filter: brightness(0.95);
     transform: translateY(-1px);
     box-shadow: 0 2px 8px ${(props) => props.$colors.shadow};
   }
 `;
 
-export const DisableButton = styled.button<{
+export const AcceptButton = styled(CookieConsentButton)<{
   $colors: ReturnType<typeof mergeColors>;
 }>`
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  background-color: ${(props) => props.$colors.primary};
+  color: ${(props) => props.$colors.background};
+  border: 1px solid transparent;
+  ${buttonFadeIn}
+  animation-delay: 0.15s;
+`;
+
+export const DisableButton = styled(CookieConsentButton)<{
+  $colors: ReturnType<typeof mergeColors>;
+}>`
   background-color: ${(props) => props.$colors.background};
   color: ${(props) => props.$colors.textPrimary};
   border: 1px solid ${(props) => props.$colors.lightSecondary};
   ${buttonFadeIn}
   animation-delay: 0.25s;
-
-  &:hover {
-    background-color: ${(props) => props.$colors.backgroundOff};
-    transform: translateY(-1px);
-    filter: brightness(0.98);
-  }
 `;
 
-export const SaveButton = styled.button<{
+export const SaveButton = styled(CookieConsentButton)<{
   $colors: ReturnType<typeof mergeColors>;
 }>`
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
   background-color: ${(props) => props.$colors.background};
   color: ${(props) => props.$colors.primary};
   border: 1px solid ${(props) => props.$colors.primary};
   ${buttonFadeIn}
   animation-delay: 0.35s;
-
-  &:hover {
-    background-color: ${(props) => props.$colors.backgroundOff};
-    transform: translateY(-1px);
-    filter: brightness(0.98);
-  }
 `;
 
 // Checkbox styling
