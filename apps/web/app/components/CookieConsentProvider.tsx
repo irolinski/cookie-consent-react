@@ -27,15 +27,16 @@ const exampleFunc_3 = () => {
 
 export const CookieConsentProvider = () => {
   const [hasConsentValue, setHasConsentValue] = useState(false);
-  useEffect(() => {
-    const value = localStorage.getItem(storageKey);
-    setHasConsentValue(!!value);
-  }, []);
 
   const handleRemoveConsent = () => {
     localStorage.removeItem(storageKey);
     setHasConsentValue(false);
   };
+
+  useEffect(() => {
+    const value = localStorage.getItem(storageKey);
+    setHasConsentValue(!!value);
+  }, []);
 
   return (
     <div className={styles.cookieConsentProvider}>
