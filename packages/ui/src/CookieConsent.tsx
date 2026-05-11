@@ -103,7 +103,9 @@ export const CookieConsent = ({
     },
   };
 
-  // useEffects
+  // USE-EFFECTS
+
+  //get saved settings
   useEffect(() => {
     const cookieConsentStoredValue = localStorage.getItem(storageKey);
     const newCookieSettings = cookieConsentStoredValue
@@ -113,6 +115,7 @@ export const CookieConsent = ({
     setSavedCookieSettings(newCookieSettings);
   }, [customStorageKey, storageKey]);
 
+  //run passed handler functions
   useEffect(() => {
     handlerFunctions?.forEach((handleFunctionObject) => {
       if (savedCookieSettings?.includes(handleFunctionObject.category))
@@ -120,6 +123,7 @@ export const CookieConsent = ({
     });
   }, [handlerFunctions, savedCookieSettings]);
 
+  //auto-open/close component based on saved data
   useEffect(() => {
     if (modalIsOpen !== undefined) {
       return;
