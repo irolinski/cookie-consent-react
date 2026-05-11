@@ -7,8 +7,22 @@ import styles from "./CookieConsentProvider.module.css";
 
 const storageKey = DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
 
-const exampleFunc = () => {
-  console.log("this function should run everytime the page mounts");
+const exampleFunc_1 = () => {
+  console.log(
+    "This function should run everytime the page mounts if essential cookies are permitted.",
+  );
+};
+
+const exampleFunc_2 = () => {
+  console.log(
+    "This function should run everytime the page mounts if analytic cookies are permitted.",
+  );
+};
+
+const exampleFunc_3 = () => {
+  console.log(
+    "This function should run everytime the page mounts if marketing cookies are permitted.",
+  );
 };
 
 export const CookieConsentProvider = () => {
@@ -30,9 +44,9 @@ export const CookieConsentProvider = () => {
         modalIsOpen={!hasConsentValue}
         categoriesListStyle="checkboxes"
         handlerFunctions={[
-          { category: "essential", function: () => exampleFunc },
-          { category: "analytics", function: () => exampleFunc },
-          { category: "marketing", function: () => exampleFunc },
+          { category: "essential", function: exampleFunc_1 },
+          { category: "analytics", function: exampleFunc_2 },
+          { category: "marketing", function: exampleFunc_3 },
         ]}
         onAcceptAll={(accept) => {
           accept();
