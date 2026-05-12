@@ -182,8 +182,7 @@ export const CookieConsent = ({
             customLocales[localesObjKey][localeKey] &&
             newLanguage[localesObjKey]
           ) {
-            newLanguage[localesObjKey][localeKey] =
-              customLocales[localesObjKey][localeKey];
+            newLanguage[localeKey] = customLocales[localesObjKey][localeKey];
           }
         });
         allLanguageLocales[localesObjKey] = newLanguage;
