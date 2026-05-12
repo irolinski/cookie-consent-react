@@ -13,7 +13,10 @@ import {
   CookieConsentCustomTranslations,
   CookieConsentTranslationObject,
 } from "./types";
-import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "./constants";
+import {
+  DEFAULT_COOKIE_CONSENT_STORAGE_KEY,
+  DEFAULT_LANGUAGE,
+} from "./constants";
 import { CookieConsentReactContainer, mergeColors } from "./styles";
 import { CookieConsentModal } from "./components/CookieConsentModal";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
@@ -46,7 +49,7 @@ export const CookieConsent = ({
   tags,
   snippets,
   handlerFunctions,
-  language = "en",
+  language = DEFAULT_LANGUAGE,
   customLocales,
   categorySettings = { essential: { required: true } },
   categoriesListStyle = "checkboxes",
@@ -160,7 +163,20 @@ export const CookieConsent = ({
         });
         //else - add the whole language to allLanguageLocales
       } else {
-        allLanguageLocales[localesObjKey] = customLocales[localesObjKey];
+        //create a new language object based on default language object to create
+        // a smooth fallback behavior if there are any missing values
+        const newLanguage = { ...allLanguageLocales[DEFAULT_LANGUAGE] };
+        Object.keys(newLanguage).forEach((localeKey) => {
+          if (
+            customLocales[localesObjKey] &&
+            customLocales[localesObjKey][localeKey] &&
+            newLanguage[localesObjKey]
+          ) {
+            newLanguage[localesObjKey][localeKey] =
+              customLocales[localesObjKey][localeKey];
+          }
+        });
+        allLanguageLocales[localesObjKey] = newLanguage;
       }
     });
   }
