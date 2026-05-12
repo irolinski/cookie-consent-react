@@ -112,9 +112,6 @@ export type CookieConsentTranslationObject = {
   other: string;
 };
 
-//make this a type of an object that contains a set of undefined or CookieConsentAvailableLanguage keys and Partial<CookieConsentTranslations> values;
-// export type CookieConsentCustomLocales =
-
 export type CookieConsentCustomTranslations = Partial<
   Record<
     CookieConsentAvailableLanguage | string,

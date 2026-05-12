@@ -2,6 +2,8 @@ import styled, { css, keyframes } from "styled-components";
 import { CookieConsentProps } from "./types";
 import { DEFAULT_COLORS } from "./constants";
 
+// Animations
+
 export const slideUp = keyframes`
   from {
     transform: translateY(100%);
@@ -25,6 +27,7 @@ export const fadeIn = keyframes`
 `;
 
 // Helper function to merge custom colors with defaults
+
 export const mergeColors = (
   customColors?: CookieConsentProps["customColors"],
 ) => ({
@@ -310,7 +313,6 @@ export const Checkmark = styled.div<{
   }
 `;
 
-// Switch styling
 export const Switch = styled.label`
   position: relative;
   display: inline-block;
@@ -379,7 +381,6 @@ export const DividerLineBody = styled.div<{
   height: ${(props) => props.$weight};
 `;
 
-// Responsive styles
 export const ResponsiveActions = styled(Actions)`
   @media (max-width: 640px) {
     flex-direction: column;
