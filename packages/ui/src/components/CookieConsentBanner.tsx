@@ -37,7 +37,6 @@ import {
   ResponsiveActions,
   SaveButtonAccordionWrapper,
 } from "./CookieConsentBanner.styles";
-import { CookieConsentTranslations } from "../locales";
 import { DividerLine } from "./ui/DividerLine";
 
 type CookieConsentBannerProps = {
@@ -141,9 +140,7 @@ export const CookieConsentBanner = ({
                                 {categorySettings[category] &&
                                 categorySettings[category]?.label
                                   ? categorySettings[category]?.label
-                                  : locales[
-                                      category as keyof CookieConsentTranslations
-                                    ]}
+                                  : locales[category]}
                                 {categorySettings[category] &&
                                   categorySettings[category]?.required &&
                                   "*"}
@@ -189,9 +186,7 @@ export const CookieConsentBanner = ({
                               {categorySettings[category] &&
                               categorySettings[category]?.label
                                 ? categorySettings[category]?.label
-                                : locales[
-                                    category as keyof CookieConsentTranslations
-                                  ]}
+                                : locales[category]}
                               {categorySettings[category] &&
                                 categorySettings[category]?.required &&
                                 "*"}
