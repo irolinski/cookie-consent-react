@@ -142,14 +142,20 @@ export const CookieConsent = ({
   }, [savedCookieSettings, modalIsOpen]);
 
   // handle locales
-  let allLanguageLocales: CookieConsentCustomTranslations =
+  const allLanguageLocales: CookieConsentCustomTranslations =
     CookieConsentDefaultTranslations;
 
   if (customLocales && Object.keys(customLocales).length) {
-    Object.keys(customLocales).forEach((localesObjKey) => {
+    (
+      Object.keys(customLocales) as Array<keyof CookieConsentTranslationObject>
+    ).forEach((localesObjKey) => {
       //if a language passed in customLocales already exists in allLanguageLocales
       if (allLanguageLocales[localesObjKey]) {
-        Object.keys(allLanguageLocales[localesObjKey]).forEach((localeKey) => {
+        (
+          Object.keys(allLanguageLocales[localesObjKey]) as Array<
+            keyof CookieConsentTranslationObject
+          >
+        ).forEach((localeKey) => {
           // replace the values of keys that exist in both customLocales and allLanguageLocales
           if (
             allLanguageLocales[localesObjKey] &&
@@ -166,7 +172,11 @@ export const CookieConsent = ({
         //create a new language object based on default language object to create
         // a smooth fallback behavior if there are any missing values
         const newLanguage = { ...allLanguageLocales[DEFAULT_LANGUAGE] };
-        Object.keys(newLanguage).forEach((localeKey) => {
+        (
+          Object.keys(newLanguage) as Array<
+            keyof CookieConsentTranslationObject
+          >
+        ).forEach((localeKey) => {
           if (
             customLocales[localesObjKey] &&
             customLocales[localesObjKey][localeKey] &&

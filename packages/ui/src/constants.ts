@@ -2,7 +2,7 @@ import { CookieConsentAvailableLanguage } from "./types";
 
 export const DEFAULT_COOKIE_CONSENT_STORAGE_KEY = "cookie-consent";
 
-export const DEFAULT_LANGUAGE: CookieConsentAvailableLanguage[number] = "en";
+export const DEFAULT_LANGUAGE: CookieConsentAvailableLanguage = "en";
 
 export const DEFAULT_COOKIE_CATEGORIES = [
   "essential",
