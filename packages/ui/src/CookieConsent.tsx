@@ -11,6 +11,7 @@ import {
   ColorsType,
   DefaultCookieConsentHandlersType,
   CookieConsentCustomTranslations,
+  CookieConsentTranslationObject,
 } from "./types";
 import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "./constants";
 import { CookieConsentReactContainer, mergeColors } from "./styles";
@@ -138,18 +139,34 @@ export const CookieConsent = ({
   }, [savedCookieSettings, modalIsOpen]);
 
   // handle locales
-  let locales = CookieConsentDefaultTranslations[language];
-  if (customLocales) {
-    const newLocalesObj = { ...locales };
-    (
-      Object.keys(customLocales) as Array<keyof CookieConsentCustomTranslations>
-    ).forEach((key) => {
-      if (customLocales[key]) {
-        newLocalesObj[key] = customLocales[key];
+  let allLanguageLocales: CookieConsentCustomTranslations =
+    CookieConsentDefaultTranslations;
+
+  if (customLocales && Object.keys(customLocales).length) {
+    Object.keys(customLocales).forEach((localesObjKey) => {
+      //if a language passed in customLocales already exists in allLanguageLocales
+      if (allLanguageLocales[localesObjKey]) {
+        Object.keys(allLanguageLocales[localesObjKey]).forEach((localeKey) => {
+          // replace the values of keys that exist in both customLocales and allLanguageLocales
+          if (
+            allLanguageLocales[localesObjKey] &&
+            allLanguageLocales[localesObjKey][localeKey] &&
+            customLocales[localesObjKey] &&
+            customLocales[localesObjKey][localeKey]
+          ) {
+            allLanguageLocales[localesObjKey][localeKey] =
+              customLocales[localesObjKey][localeKey];
+          }
+        });
+        //else - add the whole language to allLanguageLocales
+      } else {
+        allLanguageLocales[localesObjKey] = customLocales[localesObjKey];
       }
     });
-    locales = newLocalesObj;
   }
+
+  const selectedLanguageLocales: CookieConsentTranslationObject =
+    CookieConsentDefaultTranslations[language];
 
   // isOpen -- overwrite if prop exists
   const actualIsOpen = modalIsOpen !== undefined ? modalIsOpen : isOpen;
@@ -186,7 +203,7 @@ export const CookieConsent = ({
           {mode === "modal" && (
             <CookieConsentModal
               colors={colors}
-              locales={locales}
+              locales={selectedLanguageLocales}
               passedCategories={passedCategories}
               categoriesListStyle={categoriesListStyle}
               selectedCategories={selectedCategories}
@@ -203,7 +220,7 @@ export const CookieConsent = ({
           {mode === "banner" && (
             <CookieConsentBanner
               colors={colors}
-              locales={locales}
+              locales={selectedLanguageLocales}
               passedCategories={passedCategories}
               categoriesListStyle={categoriesListStyle}
               selectedCategories={selectedCategories}

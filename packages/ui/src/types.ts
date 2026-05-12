@@ -75,7 +75,7 @@ export type CookieConsentProps = {
 
 export type CookieConsentModalProps = Omit<CookieConsentProps, "mode">;
 
-export type CookieConsentTranslations = {
+export type CookieConsentTranslationObject = {
   title: string;
   description: string;
   required: string;
@@ -98,8 +98,15 @@ export type CookieConsentTranslations = {
   other: string;
 };
 
-export type CookieConsentCustomTranslations =
-  Partial<CookieConsentTranslations>;
+//make this a type of an object that contains a set of undefined or CookieConsentAvailableLanguage keys and Partial<CookieConsentTranslations> values;
+// export type CookieConsentCustomLocales =
+
+export type CookieConsentCustomTranslations = Partial<
+  Record<
+    CookieConsentAvailableLanguage | string,
+    Partial<CookieConsentTranslationObject>
+  >
+>;
 
 export type CookieConsentAvailableLanguage =
   keyof typeof CookieConsentDefaultTranslations;

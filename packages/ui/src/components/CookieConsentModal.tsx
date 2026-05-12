@@ -19,13 +19,13 @@ import {
   Slider,
   Switch,
 } from "../styles";
-import { CookieConsentTranslations } from "../locales";
 import {
   CategoriesListStyleType,
   ColorsType,
   CookieCategorySettings,
   CookieCategoryType,
   CookieConsentLocales,
+  CookieConsentTranslationObject,
   CustomCookieConsentHandlerType,
   DefaultCookieConsentHandlersType,
 } from "../types";
@@ -107,7 +107,7 @@ export const CookieConsentModal = ({
                           categorySettings[category]?.label
                             ? categorySettings[category]?.label
                             : locales[
-                                category as keyof CookieConsentTranslations
+                                category as keyof CookieConsentTranslationObject
                               ]}
                         </CategoryName>
                         {categorySettings[category] &&
@@ -154,7 +154,7 @@ export const CookieConsentModal = ({
                         categorySettings[category]?.label
                           ? categorySettings[category]?.label
                           : locales[
-                              category as keyof CookieConsentTranslations
+                              category as keyof CookieConsentTranslationObject
                             ]}
                       </CategoryName>
                       {categorySettings[category] &&
