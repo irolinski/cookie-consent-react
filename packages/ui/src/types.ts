@@ -54,13 +54,11 @@ export type CustomCookieConsentHandlerType = (
 export type CookieConsentLocales =
   (typeof CookieConsentDefaultTranslations)[keyof typeof CookieConsentDefaultTranslations];
 
-export type CookieConsentProps = {
+type CookieConsentBaseProps = {
   mode: CookieConsentMode;
   tags?: CookieTagObject[];
   snippets?: CookieSnippetObject[];
   handlerFunctions?: CookieHandlerFunctionObject[];
-  language?: CookieConsentAvailableLanguage;
-  customLocales?: CookieConsentCustomTranslations;
   categorySettings?: CookieCategorySettings;
   categoriesListStyle?: CategoriesListStyleType;
   onAcceptAll?: CustomCookieConsentHandlerType;
@@ -72,6 +70,22 @@ export type CookieConsentProps = {
   customColors?: Partial<typeof DEFAULT_COLORS>;
   customFontFamily?: string;
 };
+
+type CookieConsentDefaultLocalesProps = CookieConsentBaseProps & {
+  language?: CookieConsentAvailableLanguage;
+  customLocales?: never;
+};
+
+type CookieConsentCustomLocalesProps = CookieConsentBaseProps & {
+  language?: string;
+  customLocales: CookieConsentCustomTranslations;
+};
+
+// made this a union type to handle passing a
+// non-forseen language string after passing custom locales
+export type CookieConsentProps =
+  | CookieConsentDefaultLocalesProps
+  | CookieConsentCustomLocalesProps;
 
 export type CookieConsentModalProps = Omit<CookieConsentProps, "mode">;
 
