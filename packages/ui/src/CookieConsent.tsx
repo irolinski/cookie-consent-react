@@ -171,7 +171,12 @@ export const CookieConsent = ({
       } else {
         //create a new language object based on default language object to create
         // a smooth fallback behavior if there are any missing values
-        const newLanguage = { ...allLanguageLocales[DEFAULT_LANGUAGE] };
+        const newLanguage: CookieConsentTranslationObject = {
+          ...(allLanguageLocales[
+            DEFAULT_LANGUAGE
+          ] as CookieConsentTranslationObject), // type assertion because for edge-cases to exist here the user would have to intentionally be shooting themselves in the foot
+        };
+
         (
           Object.keys(newLanguage) as Array<
             keyof CookieConsentTranslationObject
@@ -180,7 +185,7 @@ export const CookieConsent = ({
           if (
             customLocales[localesObjKey] &&
             customLocales[localesObjKey][localeKey] &&
-            newLanguage[localesObjKey]
+            newLanguage[localeKey]
           ) {
             newLanguage[localeKey] = customLocales[localesObjKey][localeKey];
           }
@@ -190,8 +195,11 @@ export const CookieConsent = ({
     });
   }
 
-  const selectedLanguageLocales: CookieConsentTranslationObject =
-    CookieConsentDefaultTranslations[language];
+  const selectedLanguageLocales = (
+    allLanguageLocales[language]
+      ? allLanguageLocales[language]
+      : CookieConsentDefaultTranslations[DEFAULT_LANGUAGE]
+  ) as CookieConsentTranslationObject; // type assertion because fallback has been implemented so almost no chance of this object not fitting the type
 
   // isOpen -- overwrite if prop exists
   const actualIsOpen = modalIsOpen !== undefined ? modalIsOpen : isOpen;
