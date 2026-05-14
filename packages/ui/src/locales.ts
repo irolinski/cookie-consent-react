@@ -1,29 +1,3 @@
-export type CookieConsentTranslations = {
-  title: string;
-  description: string;
-  required: string;
-
-  privacyPolicyInfo: string;
-  privacyPolicy: string;
-
-  acceptAll: string;
-  saveSelection: string;
-  disableAll: string;
-
-  cookiePreferences_show: string;
-  cookiePreferences_hide: string;
-
-  categories: string;
-
-  essential: string;
-  marketing: string;
-  analytics: string;
-  other: string;
-};
-
-export type CookieConsentAvailableLanguage =
-  keyof typeof CookieConsentDefaultTranslations;
-
 export const CookieConsentDefaultTranslations = {
   en: {
     title: "Cookie consent",

@@ -10,8 +10,13 @@ import {
   CookieSnippetObject,
   ColorsType,
   DefaultCookieConsentHandlersType,
+  CookieConsentCustomTranslations,
+  CookieConsentTranslationObject,
 } from "./types";
-import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "./constants";
+import {
+  DEFAULT_COOKIE_CONSENT_STORAGE_KEY,
+  DEFAULT_LANGUAGE,
+} from "./constants";
 import { CookieConsentReactContainer, mergeColors } from "./styles";
 import { CookieConsentModal } from "./components/CookieConsentModal";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
@@ -44,7 +49,7 @@ export const CookieConsent = ({
   tags,
   snippets,
   handlerFunctions,
-  language = "en",
+  language = DEFAULT_LANGUAGE,
   customLocales,
   categorySettings = { essential: { required: true } },
   categoriesListStyle = "checkboxes",
@@ -69,11 +74,6 @@ export const CookieConsent = ({
   // CUSTOM/DEFAULT VARIABLES
   const storageKey = customStorageKey ?? DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
   const colors: ColorsType = mergeColors(customColors);
-
-  let locales = CookieConsentDefaultTranslations[language];
-  if (customLocales) {
-    locales = customLocales;
-  }
 
   // PROP VALUE PROCESSING
   const passedCategories: CookieCategoryType[] = getPassedCategories([
@@ -107,7 +107,9 @@ export const CookieConsent = ({
     },
   };
 
-  // useEffects
+  // USE-EFFECTS
+
+  //get saved settings
   useEffect(() => {
     const cookieConsentStoredValue = localStorage.getItem(storageKey);
     const newCookieSettings = cookieConsentStoredValue
@@ -117,13 +119,16 @@ export const CookieConsent = ({
     setSavedCookieSettings(newCookieSettings);
   }, [customStorageKey, storageKey]);
 
+  //run passed handler functions
   useEffect(() => {
     handlerFunctions?.forEach((handleFunctionObject) => {
-      if (savedCookieSettings?.includes(handleFunctionObject.category))
+      if (savedCookieSettings?.includes(handleFunctionObject.category)) {
         handleFunctionObject.function();
+      }
     });
   }, [handlerFunctions, savedCookieSettings]);
 
+  //auto-open/close component based on saved data
   useEffect(() => {
     if (modalIsOpen !== undefined) {
       return;
@@ -136,11 +141,74 @@ export const CookieConsent = ({
     }
   }, [savedCookieSettings, modalIsOpen]);
 
+  // handle locales
+  const allLanguageLocales: CookieConsentCustomTranslations =
+    CookieConsentDefaultTranslations;
+
+  if (customLocales && Object.keys(customLocales).length) {
+    (
+      Object.keys(customLocales) as Array<keyof CookieConsentTranslationObject>
+    ).forEach((localesObjKey) => {
+      //if a language passed in customLocales already exists in allLanguageLocales
+      if (allLanguageLocales[localesObjKey]) {
+        (
+          Object.keys(allLanguageLocales[localesObjKey]) as Array<
+            keyof CookieConsentTranslationObject
+          >
+        ).forEach((localeKey) => {
+          // replace the values of keys that exist in both customLocales and allLanguageLocales
+          if (
+            allLanguageLocales[localesObjKey] &&
+            allLanguageLocales[localesObjKey][localeKey] &&
+            customLocales[localesObjKey] &&
+            customLocales[localesObjKey][localeKey]
+          ) {
+            allLanguageLocales[localesObjKey][localeKey] =
+              customLocales[localesObjKey][localeKey];
+          }
+        });
+        //else - add the whole language to allLanguageLocales
+      } else {
+        //create a new language object based on default language object to create
+        // a smooth fallback behavior if there are any missing values
+        const newLanguage: CookieConsentTranslationObject = {
+          ...(allLanguageLocales[
+            DEFAULT_LANGUAGE
+          ] as CookieConsentTranslationObject), // type assertion because for edge-cases to exist here the user would have to intentionally be shooting themselves in the foot
+        };
+
+        (
+          Object.keys(newLanguage) as Array<
+            keyof CookieConsentTranslationObject
+          >
+        ).forEach((localeKey) => {
+          if (
+            customLocales[localesObjKey] &&
+            customLocales[localesObjKey][localeKey] &&
+            newLanguage[localeKey]
+          ) {
+            newLanguage[localeKey] = customLocales[localesObjKey][localeKey];
+          }
+        });
+        allLanguageLocales[localesObjKey] = newLanguage;
+      }
+    });
+  }
+
+  const selectedLanguageLocales = (
+    allLanguageLocales[language]
+      ? allLanguageLocales[language]
+      : CookieConsentDefaultTranslations[DEFAULT_LANGUAGE]
+  ) as CookieConsentTranslationObject; // type assertion because fallback has been implemented so almost no chance of this object not fitting the type
+
   // isOpen -- overwrite if prop exists
   const actualIsOpen = modalIsOpen !== undefined ? modalIsOpen : isOpen;
 
   return (
-    <CookieConsentReactContainer $fontFamily={customFontFamily}>
+    <CookieConsentReactContainer
+      $fontFamily={customFontFamily}
+      className="cookie-consent-react"
+    >
       {savedCookieSettings !== undefined && (
         <React.Fragment>
           {tags &&
@@ -168,7 +236,7 @@ export const CookieConsent = ({
           {mode === "modal" && (
             <CookieConsentModal
               colors={colors}
-              locales={locales}
+              locales={selectedLanguageLocales}
               passedCategories={passedCategories}
               categoriesListStyle={categoriesListStyle}
               selectedCategories={selectedCategories}
@@ -185,7 +253,7 @@ export const CookieConsent = ({
           {mode === "banner" && (
             <CookieConsentBanner
               colors={colors}
-              locales={locales}
+              locales={selectedLanguageLocales}
               passedCategories={passedCategories}
               categoriesListStyle={categoriesListStyle}
               selectedCategories={selectedCategories}
