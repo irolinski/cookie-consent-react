@@ -1,9 +1,9 @@
 "use client";
 
-import { CookieConsent } from "cookie-consent-react/CookieConsent";
 import React, { useEffect, useState } from "react";
 import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "../../../../packages/ui/src/constants";
 import styles from "./CookieConsentProvider.module.css";
+import { CookieConsent } from "cookie-consent-react";
 
 const STORAGE_KEY = DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
 
