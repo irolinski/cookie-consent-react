@@ -2,24 +2,24 @@ import { JSX } from "react";
 import { CookieConsentDefaultTranslations } from "./locales";
 import { DEFAULT_COLORS, DEFAULT_COOKIE_CATEGORIES } from "./constants";
 
-export type CookieCategoryType = (typeof DEFAULT_COOKIE_CATEGORIES)[number];
+export type CookieConsentCategory = (typeof DEFAULT_COOKIE_CATEGORIES)[number];
 
 export type CookieConsentObject = {
-  category: CookieCategoryType;
+  category: CookieConsentCategory;
 };
 
-export type CookieTagObject = CookieConsentObject & { tag: JSX.Element };
+export type CookieConsentTagObject = CookieConsentObject & { tag: JSX.Element };
 
-export type CookieSnippetObject = CookieConsentObject & {
+export type CookieConsentSnippetObject = CookieConsentObject & {
   snippet: JSX.Element;
 };
 
-export type CookieHandlerFunctionObject = CookieConsentObject & {
+export type CookieConsentHandlerFunctionObject = CookieConsentObject & {
   function: () => void;
 };
 
-export type CookieCategorySettings = {
-  [K in CookieCategoryType]?: {
+export type CookieConsentCategorySettings = {
+  [K in CookieConsentCategory]?: {
     required?: boolean;
     label?: string;
   };
@@ -27,7 +27,7 @@ export type CookieCategorySettings = {
 
 export type CookieConsentMode = "modal" | "banner";
 
-export type ColorsType = {
+export type CookieConsentColors = {
   primary: string;
   lightPrimary: string;
   lightSecondary: string;
@@ -39,15 +39,18 @@ export type ColorsType = {
   shadow: string;
 };
 
-export type CategoriesListStyleType = "hide" | "checkboxes" | "switches";
+export type CookieConsentCategoriesListStyleType =
+  | "hide"
+  | "checkboxes"
+  | "switches";
 
-export type DefaultCookieConsentHandlersType = {
+export type CookieConsentDefaultHandlers = {
   acceptAll: () => void;
   acceptSelection: () => void;
   declineAll: () => void;
 };
 
-export type CustomCookieConsentHandlerType = (
+export type CookieConsentCustomHandlerType = (
   defaultHandler: () => void,
 ) => void;
 
@@ -56,14 +59,14 @@ export type CookieConsentLocales =
 
 type CookieConsentBaseProps = {
   mode: CookieConsentMode;
-  tags?: CookieTagObject[];
-  snippets?: CookieSnippetObject[];
-  handlerFunctions?: CookieHandlerFunctionObject[];
-  categorySettings?: CookieCategorySettings;
-  categoriesListStyle?: CategoriesListStyleType;
-  onAcceptAll?: CustomCookieConsentHandlerType;
-  onAcceptSelection?: CustomCookieConsentHandlerType;
-  onDeclineAll?: CustomCookieConsentHandlerType;
+  tags?: CookieConsentTagObject[];
+  snippets?: CookieConsentSnippetObject[];
+  handlerFunctions?: CookieConsentHandlerFunctionObject[];
+  categorySettings?: CookieConsentCategorySettings;
+  categoriesListStyle?: CookieConsentCategoriesListStyleType;
+  onAcceptAll?: CookieConsentCustomHandlerType;
+  onAcceptSelection?: CookieConsentCustomHandlerType;
+  onDeclineAll?: CookieConsentCustomHandlerType;
   privacyPolicyUrl?: string;
   customStorageKey?: string;
   modalIsOpen?: boolean | undefined;

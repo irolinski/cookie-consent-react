@@ -10,13 +10,13 @@ import {
   Switch,
 } from "../styles";
 import {
-  CategoriesListStyleType,
-  ColorsType,
-  CookieCategorySettings,
-  CookieCategoryType,
+  CookieConsentCategoriesListStyleType,
+  CookieConsentColors,
+  CookieConsentCategorySettings,
+  CookieConsentCategory,
   CookieConsentLocales,
-  CustomCookieConsentHandlerType,
-  DefaultCookieConsentHandlersType,
+  CookieConsentCustomHandlerType,
+  CookieConsentDefaultHandlers,
 } from "../types";
 import {
   Banner,
@@ -40,21 +40,21 @@ import {
 import { DividerLine } from "./ui/DividerLine";
 
 type CookieConsentBannerProps = {
-  colors: ColorsType;
+  colors: CookieConsentColors;
   locales: CookieConsentLocales;
-  passedCategories: CookieCategoryType[];
-  categoriesListStyle: CategoriesListStyleType;
-  selectedCategories: CookieCategoryType[];
-  requiredCategories: CookieCategoryType[];
-  categorySettings: CookieCategorySettings;
+  passedCategories: CookieConsentCategory[];
+  categoriesListStyle: CookieConsentCategoriesListStyleType;
+  selectedCategories: CookieConsentCategory[];
+  requiredCategories: CookieConsentCategory[];
+  categorySettings: CookieConsentCategorySettings;
   setSelectedCategories: Dispatch<
     SetStateAction<("essential" | "marketing" | "analytics" | "other")[]>
   >;
   privacyPolicyUrl: string | undefined;
-  onAcceptAll: CustomCookieConsentHandlerType | undefined;
-  onAcceptSelection: CustomCookieConsentHandlerType | undefined;
-  onDeclineAll: CustomCookieConsentHandlerType | undefined;
-  defaultHandlers: DefaultCookieConsentHandlersType;
+  onAcceptAll: CookieConsentCustomHandlerType | undefined;
+  onAcceptSelection: CookieConsentCustomHandlerType | undefined;
+  onDeclineAll: CookieConsentCustomHandlerType | undefined;
+  defaultHandlers: CookieConsentDefaultHandlers;
 };
 
 export const CookieConsentBanner = ({
