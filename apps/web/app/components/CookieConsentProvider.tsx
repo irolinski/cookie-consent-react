@@ -57,8 +57,8 @@ export const CookieConsentProvider = () => {
           accept();
           setHasConsentValue(true);
         }}
-        onDeclineAll={(accept) => {
-          accept();
+        onDeclineAll={(decline) => {
+          decline();
           setHasConsentValue(true);
         }}
         privacyPolicyUrl="localhost:8000"
