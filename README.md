@@ -2,9 +2,9 @@
 
 Customizable cookie consent component for React.
 
-Built for lightweight, flexible, and privacy-focused consent management in modern React applications.
+Built for lightweight, flexible consent management in React applications.
 
-Supports banner and modal modes, consent categories, localization, custom theming, runtime handlers, and React/HTML-based third-party integrations.
+Includes banner and modal modes. Supports consent categories, localization, custom theming, runtime handlers, and React/HTML-based third-party integrations.
 
 Fully typed with TypeScript support.
 
