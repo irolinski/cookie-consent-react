@@ -178,15 +178,15 @@ const analyticsHandler = () => {
 | **tags** | `CookieTagObject[]` | React components rendered after consent is granted for their category. | — |
 | **snippets** | `CookieSnippetObject[]` | Raw JSX/HTML snippets rendered after consent is granted for their category. | — |
 | **handlerFunctions** | `CookieHandlerFunctionObject[]` | Runtime callbacks executed when consent exists or changes. | — |
-| **categorySettings** | `CookieCategorySettings` | Customize category labels and required categories. | — |
-| **categoriesListStyle** | `"hide"` \| `"checkboxes"` \| `"switches"` | Determines how categories are displayed in the UI. | `"switches"` |
+| **categorySettings** | `CookieCategorySettings` | Customize category labels and required categories. |`{ essential: { required: true } }`|
+| **categoriesListStyle** | `"hide"` \| `"checkboxes"` \| `"switches"` | Determines how categories are displayed in the UI. | `"checkboxes"` |
 | **onAcceptAll** | `(defaultHandler: () => void) => void` | Callback executed when all categories are accepted. | — |
 | **onAcceptSelection** | `(defaultHandler: () => void) => void` | Callback executed when selected categories are saved. | — |
 | **onDeclineAll** | `(defaultHandler: () => void) => void` | Callback executed when optional categories are declined. | — |
 | **privacyPolicyUrl** | `string` | URL to the application's privacy policy. | — |
-| **customStorageKey** | `string` | Custom storage key used for persisted consent data. | Internal default key |
-| **modalIsOpen** | `boolean` | Controls modal visibility. | Internal state |
-| **customColors** | `Partial<typeof DEFAULT_COLORS>` | Override default component colors. | Default theme |
+| **customStorageKey** | `string` | Custom storage key used for persisted consent data. | By default this value is empty; however a default key "cookie-consent" is used instead if this isn't defined. |
+| **modalIsOpen** | `boolean` | Controls modal visibility. | Handled by boolean type internal state which is set to true on render if there aren't any saved settings in localStorage for current storageKey |
+| **customColors** | `Partial<typeof DEFAULT_COLORS>` | Override default component colors. | By default the colors are `{ primary: "#0070f3", lightPrimary: "#eaeaea", lightSecondary: "#d0d0d0", textPrimary: "#333333", textSecondary: "#666666", background: "#ffffff", backgroundOff: "#f9f9f9", overlay: "rgba(0, 0, 0, 0.5)", shadow: "rgba(0, 0, 0, 0.15)"}`|
 | **customFontFamily** | `string` | Custom font family used throughout the component. | System font |
 | **language** | `CookieConsentAvailableLanguage \| string` | Active localization language. | `"en"` |
 | **customLocales** | `CookieConsentCustomTranslations` | Custom translation overrides. | — |
