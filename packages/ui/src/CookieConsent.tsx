@@ -5,11 +5,11 @@ import { CookieConsentDefaultTranslations } from "./locales";
 import {
   CookieConsentProps,
   CookieConsentObject,
-  CookieCategoryType,
-  CookieTagObject,
-  CookieSnippetObject,
-  ColorsType,
-  DefaultCookieConsentHandlersType,
+  CookieConsentCategory,
+  CookieConsentTagObject,
+  CookieConsentSnippetObject,
+  CookieConsentColors,
+  CookieConsentDefaultHandlers,
   CookieConsentCustomTranslations,
   CookieConsentTranslationObject,
 } from "./types";
@@ -24,7 +24,7 @@ import { CookieConsentBanner } from "./components/CookieConsentBanner";
 const getPassedCategories = (
   allCookieObjects: (CookieConsentObject[] | undefined)[],
 ) => {
-  const passedCategories: CookieCategoryType[] = [];
+  const passedCategories: CookieConsentCategory[] = [];
 
   const passedCookieObjects: CookieConsentObject[][] = [];
   allCookieObjects.forEach((cookieObject) => {
@@ -73,10 +73,10 @@ export const CookieConsent = ({
 
   // CUSTOM/DEFAULT VARIABLES
   const storageKey = customStorageKey ?? DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
-  const colors: ColorsType = mergeColors(customColors);
+  const colors: CookieConsentColors = mergeColors(customColors);
 
   // PROP VALUE PROCESSING
-  const passedCategories: CookieCategoryType[] = getPassedCategories([
+  const passedCategories: CookieConsentCategory[] = getPassedCategories([
     tags,
     snippets,
     handlerFunctions,
@@ -95,7 +95,7 @@ export const CookieConsent = ({
     setSavedCookieSettings(categories);
   };
 
-  const defaultHandlers: DefaultCookieConsentHandlersType = {
+  const defaultHandlers: CookieConsentDefaultHandlers = {
     acceptAll: () => {
       handleSaveSettings([...passedCategories]);
     },
@@ -212,7 +212,7 @@ export const CookieConsent = ({
       {savedCookieSettings !== undefined && (
         <React.Fragment>
           {tags &&
-            tags.map((tag: CookieTagObject, indexNum: number) => {
+            tags.map((tag: CookieConsentTagObject, indexNum: number) => {
               if (savedCookieSettings.includes(tag.category))
                 return (
                   <React.Fragment key={indexNum}>{tag.tag}</React.Fragment>
@@ -220,15 +220,17 @@ export const CookieConsent = ({
               return null;
             })}
           {snippets &&
-            snippets.map((snippet: CookieSnippetObject, indexNum: number) => {
-              if (savedCookieSettings.includes(snippet.category))
-                return (
-                  <React.Fragment key={indexNum}>
-                    {snippet.snippet}
-                  </React.Fragment>
-                );
-              return null;
-            })}
+            snippets.map(
+              (snippet: CookieConsentSnippetObject, indexNum: number) => {
+                if (savedCookieSettings.includes(snippet.category))
+                  return (
+                    <React.Fragment key={indexNum}>
+                      {snippet.snippet}
+                    </React.Fragment>
+                  );
+                return null;
+              },
+            )}
         </React.Fragment>
       )}
       {actualIsOpen ? (

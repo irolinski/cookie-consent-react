@@ -1,7 +1,7 @@
 "use client";
 
 import { DividerLineBody, DividerLineWrapper } from "../../styles";
-import { ColorsType } from "../../types";
+import { CookieConsentColors } from "../../types";
 
 export const DividerLine = ({
   length = "33%",
@@ -10,7 +10,7 @@ export const DividerLine = ({
 }: {
   length?: string;
   weight?: string;
-  colors: ColorsType;
+  colors: CookieConsentColors;
 }) => {
   return (
     <DividerLineWrapper>
