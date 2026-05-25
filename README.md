@@ -2,7 +2,7 @@
 
 Customizable cookie consent component for React.
 
-Built for lightweight, flexible consent management in React applications.
+Built for lightweight, flexible cookie consent management in React applications.
 
 Includes banner and modal modes. Supports consent categories, localization, custom theming, runtime handlers, and React/HTML-based third-party integrations.
 
@@ -91,94 +91,92 @@ The component includes four default cookie categories:
 
 All `tags`, `snippets`, and `handlerFunctions` must be assigned to one of these categories.
 
----
-
-### tags
-
-Use `tags` for rendering React components after consent is granted for their assigned category.
-
-Example:
-
-```tsx
-<CookieConsent
-  mode="banner"
-  tags={[
-    {
-      category: "marketing",
-      tag: <GoogleTagManager gtmId="GTM-XXXXXXX" />,
-    },
-  ]}
-/>
-```
+  ### tags
+  
+  Use `tags` for rendering React components after consent is granted for their assigned category.
+  
+  Example:
+  
+  ```tsx
+  <CookieConsent
+    mode="banner"
+    tags={[
+      {
+        category: "marketing",
+        tag: <GoogleTagManager gtmId="GTM-XXXXXXX" />,
+      },
+    ]}
+  />
+  ```
 
 ---
 
-### snippets
-
-Use `snippets` for rendering raw JSX/HTML snippets after consent is granted for their assigned category.
-
-Example:
-
-```tsx
-<CookieConsent
-  mode="banner"
-  snippets={[
-    {
-      category: "marketing",
-      snippet: (
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-          height="0"
-          width="0"
-          style={{
-            visibility: "hidden",
-            display: "none",
-          }}
-        />
-      ),
-    },
-  ]}
-/>
-```
+  ### snippets
+  
+  Use `snippets` for rendering raw JSX/HTML snippets after consent is granted for their assigned category.
+  
+  Example:
+  
+  ```tsx
+  <CookieConsent
+    mode="banner"
+    snippets={[
+      {
+        category: "marketing",
+        snippet: (
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            height="0"
+            width="0"
+            style={{
+              visibility: "hidden",
+              display: "none",
+            }}
+          />
+        ),
+      },
+    ]}
+  />
+  ```
 
 ---
 
-### handlerFunctions
-
-Use `handlerFunctions` for runtime side effects and initialization logic after consent is granted for their assigned category.
-
-Handler functions execute:
-
-- whenever the component mounts and consent already exists
-- whenever consent preferences are updated and saved
-
-Example:
-
-```tsx
-const analyticsHandler = () => {
-  console.log("Analytics initialized");
-};
-
-<CookieConsent
-  mode="banner"
-  handlerFunctions={[
-    {
-      category: "analytics",
-      function: analyticsHandler,
-    },
-  ]}
-/>
-```
+  ### handlerFunctions
+  
+  Use `handlerFunctions` for runtime side effects and initialization logic after consent is granted for their assigned category.
+  
+  Handler functions execute:
+  
+  - whenever the component mounts and consent already exists
+  - whenever consent preferences are updated and saved
+  
+  Example:
+  
+  ```tsx
+  const analyticsHandler = () => {
+    console.log("Analytics initialized");
+  };
+  
+  <CookieConsent
+    mode="banner"
+    handlerFunctions={[
+      {
+        category: "analytics",
+        function: analyticsHandler,
+      },
+    ]}
+  />
+  ```
 
 ## Documentation
 
 | Prop | Type | Description | Default |
 |---|---|---|---|
-| **mode** | `"modal"` \| `"banner"` | Determines component display mode. | — |
-| **tags** | `CookieTagObject[]` | React components rendered after consent is granted for their category. | — |
-| **snippets** | `CookieSnippetObject[]` | Raw JSX/HTML snippets rendered after consent is granted for their category. | — |
-| **handlerFunctions** | `CookieHandlerFunctionObject[]` | Runtime callbacks executed when consent exists or changes. | — |
-| **categorySettings** | `CookieCategorySettings` | Customize category labels and required categories. |`{ essential: { required: true } }`|
+| **mode*** | `"modal"` \| `"banner"` | Determines component display mode. *Required. | — |
+| **tags** | `{category: "essential" \| "marketing" \| "analytics" \| "other"; tag: JSX.Element }[]` | React components rendered after consent is granted for their category. | — |
+| **snippets** | `{category: "essential" \| "marketing" \| "analytics" \| "other"; snippet: JSX.Element }[]` | Raw JSX/HTML snippets rendered after consent is granted for their category. | — |
+| **handlerFunctions** | `{category: "essential" \| "marketing" \| "analytics" \| "other"; function: () => void }[]` | Runtime callbacks executed when consent exists or changes. | — |
+| **categorySettings** | `{ [K in CookieConsentCategory]?: { required?: boolean; label?: string; } }` | Customize category labels and required categories. |`{ essential: { required: true } }`|
 | **categoriesListStyle** | `"hide"` \| `"checkboxes"` \| `"switches"` | Determines how categories are displayed in the UI. | `"checkboxes"` |
 | **onAcceptAll** | `(defaultHandler: () => void) => void` | Callback executed when all categories are accepted. | — |
 | **onAcceptSelection** | `(defaultHandler: () => void) => void` | Callback executed when selected categories are saved. | — |
@@ -186,10 +184,10 @@ const analyticsHandler = () => {
 | **privacyPolicyUrl** | `string` | URL to the application's privacy policy. | — |
 | **customStorageKey** | `string` | Custom storage key used for persisted consent data. | By default this value is empty; however a default key "cookie-consent" is used instead if this isn't defined. |
 | **modalIsOpen** | `boolean` | Controls modal visibility. | Handled by boolean type internal state which is set to true on render if there aren't any saved settings in localStorage for current storageKey |
-| **customColors** | `Partial<typeof DEFAULT_COLORS>` | Override default component colors. | By default the colors are `{ primary: "#0070f3", lightPrimary: "#eaeaea", lightSecondary: "#d0d0d0", textPrimary: "#333333", textSecondary: "#666666", background: "#ffffff", backgroundOff: "#f9f9f9", overlay: "rgba(0, 0, 0, 0.5)", shadow: "rgba(0, 0, 0, 0.15)"}`|
+| **customColors** | `Partial<typeof { primary: "#0070f3", lightPrimary: "#eaeaea", lightSecondary: "#d0d0d0", textPrimary: "#333333", textSecondary: "#666666", background: "#ffffff", backgroundOff: "#f9f9f9", overlay: "rgba(0, 0, 0, 0.5)", shadow: "rgba(0, 0, 0, 0.15)" }>` | Override default component colors. | - |
 | **customFontFamily** | `string` | Custom font family used throughout the component. | System font |
-| **language** | `CookieConsentAvailableLanguage \| string` | Active localization language. | `"en"` |
-| **customLocales** | `CookieConsentCustomTranslations` | Custom translation overrides. | — |
+| **language** | ` "en" \| "de" \| "es" \| "fr" \| "it" \| "nl" \| "pt" \| "ja" \| "zh" \| "ar" \| "ru" \| "ko" \| "pl"\| string ` | Active localization language. | `"en"` |
+| **customLocales** | `{  "en" \| "de" \| "es" \| "fr" \| "it" \| "nl" \| "pt" \| "ja" \| "zh" \| "ar" \| "ru" \| "ko" \| "pl"\| string : Partial<{ title: string; description: string; required: string; privacyPolicyInfo: string; privacyPolicy: string; acceptAll: string; SaveSelection: string; disableAll: string; cookiePreferences_show: string; cookiePreferences_hide: string; categories: string; essential: string; marketing: string; analytics: string; other: string; }> \| undefined; }` | Custom translation overrides. | — |
 
 ## Built-in Languages
 
