@@ -160,7 +160,6 @@ export const PrivacyPolicy = styled.div<{
 }>`
   margin-bottom: 12px;
   font-size: 12px;
-  color: ${(props) => props.$colors.textSecondary};
 
   a {
     color: ${(props) => props.$colors.primary};

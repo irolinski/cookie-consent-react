@@ -172,10 +172,8 @@ export const CookieConsentModal = ({
         </CategoriesContainer>
         {privacyPolicyUrl && (
           <PrivacyPolicy $colors={colors}>
-            <p>
-              {locales.privacyPolicyInfo}{" "}
-              <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
-            </p>
+            {locales.privacyPolicyInfo}{" "}
+            <a href={privacyPolicyUrl}>{locales.privacyPolicy}</a>.
           </PrivacyPolicy>
         )}
         <ResponsiveActions>
