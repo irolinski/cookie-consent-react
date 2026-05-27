@@ -58,7 +58,7 @@ export const CookieConsent = ({
   onDeclineAll,
   privacyPolicyUrl,
   customStorageKey,
-  modalIsOpen = undefined,
+  componentIsOpen = undefined,
   customColors,
   customFontFamily,
 }: CookieConsentProps) => {
@@ -130,7 +130,7 @@ export const CookieConsent = ({
 
   //auto-open/close component based on saved data
   useEffect(() => {
-    if (modalIsOpen !== undefined) {
+    if (componentIsOpen !== undefined) {
       return;
     } else {
       if (Array.isArray(savedCookieSettings)) {
@@ -139,7 +139,7 @@ export const CookieConsent = ({
         setIsOpen(true);
       }
     }
-  }, [savedCookieSettings, modalIsOpen]);
+  }, [savedCookieSettings, componentIsOpen]);
 
   // handle locales
   const allLanguageLocales: CookieConsentCustomTranslations =
@@ -202,7 +202,7 @@ export const CookieConsent = ({
   ) as CookieConsentTranslationObject; // type assertion because fallback has been implemented so almost no chance of this object not fitting the type
 
   // isOpen -- overwrite if prop exists
-  const actualIsOpen = modalIsOpen !== undefined ? modalIsOpen : isOpen;
+  const actualIsOpen = componentIsOpen !== undefined ? componentIsOpen : isOpen;
 
   return (
     <CookieConsentReactContainer

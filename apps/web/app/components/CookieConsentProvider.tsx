@@ -42,7 +42,7 @@ export const CookieConsentProvider = () => {
     <div className={styles.cookieConsentProvider}>
       <CookieConsent
         mode="banner"
-        modalIsOpen={!hasConsentValue}
+        componentIsOpen={!hasConsentValue}
         categoriesListStyle="checkboxes"
         handlerFunctions={[
           { category: "essential", function: exampleFunc_1 },

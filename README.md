@@ -1,18 +1,27 @@
 # cookie-consent-react
 
-Customizable cookie consent component for React.
+Customizable, localized cookie consent component for React.
 
 Built for lightweight, flexible cookie consent management in React applications.
-
-Includes banner and modal modes. Supports consent categories, localization, custom theming, runtime handlers, and React/HTML-based third-party integrations.
 
 Fully typed with TypeScript support.
 
 Compatible with Next.js and other React frameworks.
 
-## Update: May 24, 2026
+## Update: May 27, 2026
 
-Version: 1.2.1
+Version: 1.2.3
+
+Changes:
+- numerous visual bugs were resolved
+- the prop 'modalIsOpen' has been renamed to 'componentIsOpen'
+- the README has been updated; example gifs have been added
+  
+
+## Examples
+
+<p align="center"> <img src="https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_2.gif?raw=true" height="450">  <img src="https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_1.gif?raw=true" height="450">  </p>
+
 
 ## Installation
 
@@ -183,7 +192,7 @@ All `tags`, `snippets`, and `handlerFunctions` must be assigned to one of these 
 | **onDeclineAll** | `(defaultHandler: () => void) => void` | Callback executed when optional categories are declined. | — |
 | **privacyPolicyUrl** | `string` | URL to the application's privacy policy. | — |
 | **customStorageKey** | `string` | Custom storage key used for persisted consent data. | By default this value is empty; however a default key "cookie-consent" is used instead if this isn't defined. |
-| **modalIsOpen** | `boolean` | Controls modal visibility. | Handled by boolean type internal state which is set to true on render if there aren't any saved settings in localStorage for current storageKey |
+| **componentIsOpen** | `boolean` | Controls modal visibility. | Handled by boolean type internal state which is set to true on render if there aren't any saved settings in localStorage for current storageKey |
 | **customColors** | `Partial<typeof { primary: "#0070f3", lightPrimary: "#eaeaea", lightSecondary: "#d0d0d0", textPrimary: "#333333", textSecondary: "#666666", background: "#ffffff", backgroundOff: "#f9f9f9", overlay: "rgba(0, 0, 0, 0.5)", shadow: "rgba(0, 0, 0, 0.15)" }>` | Override default component colors. | - |
 | **customFontFamily** | `string` | Custom font family used throughout the component. | System font |
 | **language** | ` "en" \| "de" \| "es" \| "fr" \| "it" \| "nl" \| "pt" \| "ja" \| "zh" \| "ar" \| "ru" \| "ko" \| "pl"\| string ` | Active localization language. | `"en"` |
