@@ -8,9 +8,15 @@ Fully typed with TypeScript support.
 
 Compatible with Next.js and other React frameworks.
 
-## Update: May 24, 2026
+## Update: May 27, 2026
 
 Version: 1.2.3
+
+Changes:
+- numerous visual bugs were resolved
+- the prop 'modalIsOpen' has been renamed to 'componentIsOpen'
+- the README has been updated; example gifs have been added
+  
 
 ## Examples
 
