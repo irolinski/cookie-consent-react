@@ -69,7 +69,7 @@ type CookieConsentBaseProps = {
   onDeclineAll?: CookieConsentCustomHandlerType;
   privacyPolicyUrl?: string;
   customStorageKey?: string;
-  modalIsOpen?: boolean | undefined;
+  componentIsOpen?: boolean | undefined;
   customColors?: Partial<typeof DEFAULT_COLORS>;
   customFontFamily?: string;
 };
