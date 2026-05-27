@@ -1,10 +1,8 @@
 # cookie-consent-react
 
-Customizable cookie consent component for React.
+Customizable, localized cookie consent component for React.
 
 Built for lightweight, flexible cookie consent management in React applications.
-
-Includes banner and modal modes. Supports consent categories, localization, custom theming, runtime handlers, and React/HTML-based third-party integrations.
 
 Fully typed with TypeScript support.
 
@@ -16,8 +14,8 @@ Version: 1.2.3
 
 ## Examples
 
-![Example App](https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_2.gif)
-![Example App](https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_1.gif)
+<p align="center"> <img src="https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_2.gif?raw=true" height="450">  <img src="https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_1.gif?raw=true" height="450">  </p>
+
 
 ## Installation
 
