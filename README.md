@@ -14,6 +14,11 @@ Compatible with Next.js and other React frameworks.
 
 Version: 1.2.3
 
+## Examples
+
+![Example App](https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_2.gif)
+![Example App](https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_1.gif)
+
 ## Installation
 
 ```bash
