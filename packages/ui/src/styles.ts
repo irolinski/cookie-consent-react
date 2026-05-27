@@ -195,9 +195,8 @@ export const CookieConsentButton = styled.button<{
   transition: all 0.2s ease;
   animation-delay: 0.35s;
   &:hover {
-    filter: brightness(0.95);
+    filter: brightness(0.975);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px ${(props) => props.$colors.shadow};
   }
 `;
 
