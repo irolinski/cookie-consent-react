@@ -8,9 +8,9 @@ Fully typed with TypeScript support.
 
 Compatible with Next.js and other React frameworks.
 
-## Update: May 27, 2026
+## Update: May 31, 2026
 
-Version: 1.2.3
+Version: 1.2.4
 
 Changes:
 - numerous visual bugs were resolved
