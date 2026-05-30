@@ -10,7 +10,7 @@ Compatible with Next.js and other React frameworks.
 
 ## Update: May 31, 2026
 
-Version: 1.2.5
+Version: 1.2.6
 
 Changes:
 - numerous visual bugs were resolved
