@@ -1,8 +1,14 @@
 {
   "name": "cookie-consent-react",
-  "version": "1.2.4",
+  "version": "1.2.6",
   "private": false,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irolinski/cookie-consent-react.git"
+  },
+  "description": "Open-source cookie consent component for React. Compatible w/ Next.js.",
+  "author": "irolinski <ignacy.rolinski@gmail.com> (https://github.com/irolinski)",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

@@ -10,7 +10,7 @@ Compatible with Next.js and other React frameworks.
 
 ## Update: May 31, 2026
 
-Version: 1.2.4
+Version: 1.2.6
 
 Changes:
 - numerous visual bugs were resolved
@@ -20,8 +20,8 @@ Changes:
 
 ## Examples
 
-![Example App](https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_2.gif?raw=true)
-![Example App](https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_1.gif?raw=true)
+<img src="https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_2.gif?raw=true" height="450">  <img src="https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_1.gif?raw=true" height="450"> 
+
 
 
 ## Installation
