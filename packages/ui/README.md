@@ -20,7 +20,7 @@ Changes:
 
 ## Examples
 
-<img src="https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_2.gif?raw=true" height="450">  <img src="https://github.com/irolinski/cookie-consent-react/blob/v1.2.3/docs/assets/example_1.gif?raw=true" height="450"> 
+<img src="https://github.com/irolinski/cookie-consent-react/blob/main/docs/assets/example_2.gif" height="450">  <img src="https://github.com/irolinski/cookie-consent-react/blob/main/docs/assets/example_1.gif" height="450"> 
 
 
 
