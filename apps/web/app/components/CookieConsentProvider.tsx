@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { DEFAULT_COOKIE_CONSENT_STORAGE_KEY } from "../../../../packages/ui/src/constants";
 import styles from "./CookieConsentProvider.module.css";
-import { CookieConsent } from "cookie-consent-react";
+import { CookieConsent } from "cookie-consent-react/CookieConsent";
 
 const STORAGE_KEY = DEFAULT_COOKIE_CONSENT_STORAGE_KEY;
 
@@ -42,12 +42,15 @@ export const CookieConsentProvider = () => {
     <div className={styles.cookieConsentProvider}>
       <CookieConsent
         mode="banner"
+        language="de"
         componentIsOpen={!hasConsentValue}
-        categoriesListStyle="checkboxes"
+        categoriesListStyle="switches"
+        customColors={{ primary: "green" }}
         handlerFunctions={[
           { category: "essential", function: exampleFunc_1 },
           { category: "analytics", function: exampleFunc_2 },
           { category: "marketing", function: exampleFunc_3 },
+          { category: "other", function: exampleFunc_3 },
         ]}
         onAcceptAll={(accept) => {
           accept();

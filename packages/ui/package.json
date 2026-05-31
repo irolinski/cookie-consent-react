@@ -16,10 +16,15 @@
     "dist"
   ],
   "exports": {
+    "./*": {
+      "default": "./src/*.tsx"
+    },
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "production": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.js"
+      }
     }
   },
   "scripts": {
