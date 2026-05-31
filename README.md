@@ -10,12 +10,10 @@ Compatible with Next.js and other React frameworks.
 
 ## Update: May 31, 2026
 
-Version: 1.2.8
+Version: 1.2.9
 
 Changes:
-- numerous visual bugs were resolved
-- the prop 'modalIsOpen' has been renamed to 'componentIsOpen'
-- the README has been updated; example gifs have been added
+- fixed issue with module export routes needing change-up everytime when switching from dev to prod
   
 
 ## Examples
